@@ -18,26 +18,56 @@
         </header>
         <div class="row">
             <h1 class="mt-2 text-center">Register new employee</h1>
-            <form class="col-12 col-sm-8 offset-sm-2" method="post">
+            <form class="col-12 col-sm-8 offset-sm-2 needs-validation" method="post" novalidate>
                 <div class="form-group">
                     <label for="fname">First Name:</label>
-                    <input id="fname" class="form-control" type="text" placeholder="Enter your first name">
+                    <input id="fname" class="form-control" type="text" placeholder="Enter your first name" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter your First Name.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="lname">Last Name:</label>
-                    <input id="lname" class="form-control" type="text" placeholder="Enter your last name">
+                    <input id="lname" class="form-control" type="text" placeholder="Enter your last name" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter your Last Name.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="address">Address:</label>
-                    <input id="address" class="form-control" type="text" placeholder="Enter your address">
+                    <input id="address" class="form-control" type="text" placeholder="Enter your address" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter your Address.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input id="email" class="form-control" type="text" placeholder="Enter your email">
+                    <input id="email" class="form-control" type="email" placeholder="Enter your email" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter your Email.
+                    </div>
                 </div>
                 <div class="form-group mb-4">
                     <label for="age">Age:</label>
-                    <input id="age" class="form-control" type="number" placeholder="Enter your Age">
+                    <input id="age" class="form-control" type="number" placeholder="Enter your Age" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter your Age.
+                    </div>
                 </div>
                 <button type="submit" class="btn filled">Register</button>
                 <a href="/login_page.html" class="btn loginbtn">Login</a>
