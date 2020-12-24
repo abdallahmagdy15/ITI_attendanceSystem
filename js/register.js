@@ -35,6 +35,7 @@ $('#regForm').submit(function (e) {
   $.each($(this).serializeArray(), function (i, kv) {
     emp[kv.name] = kv.value;
   });
+  emp.dateofemp = new Date();
   //get all emp data
   fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
