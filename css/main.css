@@ -13,6 +13,7 @@ grey red
 white
 
 */
+
 @font-face {
     font-family: 'quicksandfont';
     src: url('../fonts/quicksandfont.eot');
@@ -79,4 +80,7 @@ white
     color: #A62631;
     text-decoration: underline;
     font-weight: bold;
+}
+.nav.nav-tabs{
+    border-bottom: 3px dotted #A62631;
 }

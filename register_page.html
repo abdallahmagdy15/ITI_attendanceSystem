@@ -18,10 +18,10 @@
         </header>
         <div class="row">
             <h1 class="mt-2 text-center">Register new employee</h1>
-            <form class="col-12 col-sm-8 offset-sm-2 needs-validation" method="post" novalidate>
+            <form id="regForm" class="col-12 col-sm-8 offset-sm-2 needs-validation" method="post" novalidate>
                 <div class="form-group">
                     <label for="fname">First Name:</label>
-                    <input id="fname" class="form-control" type="text" placeholder="Enter your first name" required>
+                    <input id="fname" name="fname" class="form-control" type="text" placeholder="Enter your first name" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label for="lname">Last Name:</label>
-                    <input id="lname" class="form-control" type="text" placeholder="Enter your last name" required>
+                    <input id="lname" name="lname" class="form-control" type="text" placeholder="Enter your last name" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Address:</label>
-                    <input id="address" class="form-control" type="text" placeholder="Enter your address" required>
+                    <input id="address" name="address" class="form-control" type="text" placeholder="Enter your address" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input id="email" class="form-control" type="email" placeholder="Enter your email" required>
+                    <input id="email" name="email" class="form-control" type="email" placeholder="Enter your email" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group mb-4">
                     <label for="age">Age:</label>
-                    <input id="age" class="form-control" type="number" placeholder="Enter your Age" required>
+                    <input id="age" name="age" class="form-control" type="number" placeholder="Enter your Age" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
