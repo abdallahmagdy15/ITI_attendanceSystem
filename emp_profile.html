@@ -16,9 +16,12 @@
         <header class="row mb-4">
             <a href="index.html"><img src="img/header.png" class="col-12 col-sm-8 offset-sm-2" alt=""></a>
         </header>
-        <div class="row">
+        <div class="row p-3">
             <div class="col-12 col-md-5">
-                <h2 id="empName">Your Name</h2>
+                <div class="row">
+                    <h2 class="col-9" id="empName">Your Name</h2>
+                    <a class="col-3 btn logout" href="login_page.html">Logout</a>
+                </div>
                 <hr>
                 <div class="empDetails">
                     <div>
@@ -60,6 +63,7 @@
                                     <th>Attendance Times</th>
                                     <th>Late Times</th>
                                     <th>Absence Times</th>
+                                    <th>Execuse Times</th>
                                 </tr>
                             </thead>
                             <tbody id="monthlyReportRows">
@@ -76,6 +80,7 @@
                                     <th>Departure Time</th>
                                     <th>Late</th>
                                     <th>Absent</th>
+                                    <th>Execuse</th>
                                 </tr>
                             </thead>
                             <tbody id="dailyReportRows">

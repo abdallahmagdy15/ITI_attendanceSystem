@@ -7,14 +7,156 @@
     <title>Admin Panel</title>
     <!-- stylesheet libs-->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap4-toggle.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/adminpanel_style.css" />
 </head>
 
 <body>
+    <div class="container-fluid">
+        <header class="row mb-4">
+            <a href="index.html"><img src="img/header.png" class="col-12 col-sm-8 offset-sm-2" alt=""></a>
+        </header>
+        <div class="row p-3">
+            <h2 class="pull-left col-6">Admin Panel</h2>
+            <div class="pull-right col-6">
+                <a href="login_page.html" style="float: right;" class="btn logout">Logout</a>
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-12 admin-reports">
+                <ul class="nav nav-tabs" id="reportsTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="monthly-tab" data-toggle="tab" href="#monthlyReport"
+                            role="tab">All Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="fullreport-tab" data-toggle="tab" href="#fullreport" role="tab"
+                            aria-controls="allemps" aria-selected="false">Full Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="latereport-tab" data-toggle="tab" href="#latereport" role="tab"
+                            aria-controls="monthly" aria-selected="true">Late Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="absencereport-tab" data-toggle="tab" href="#absencereport" role="tab"
+                            aria-controls="monthly" aria-selected="true">Absence Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="execusereport-tab" data-toggle="tab" href="#execusereport" role="tab"
+                            aria-controls="daily" aria-selected="false">Execuse Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests" role="tab"
+                            aria-controls="daily" aria-selected="false">Registration Requests</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content pt-2">
+
+                    <div class="tab-pane active" id="allemps" role="tabpanel" aria-labelledby="allemps-tab">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th>Attendance Admin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allempsRows">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="fullreport" role="tabpanel" aria-labelledby="fullreport-tab">
+                        <div>
+                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
+                                data-onstyle="success" data-offstyle="warning">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th id="fullreportTitle"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="fullreportRows">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="latereport" role="tabpanel" aria-labelledby="latereport-tab">
+                        <div>
+                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
+                                data-onstyle="success" data-offstyle="warning">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th id="latereportTitle"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="latereportRows">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="absencereport" role="tabpanel" aria-labelledby="absencereport-tab">
+                        <div>
+                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
+                                data-onstyle="success" data-offstyle="warning">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th id="absencereportTitle"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="absencereportRows">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="execusereport" role="tabpanel" aria-labelledby="execusereport-tab">
+                        <div>
+                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
+                                data-onstyle="success" data-offstyle="warning">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th id="execusereportTitle"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="execusereportRows">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="requestsRows">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <!--js libs-->
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap4-toggle.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/adminpanel.js"></script>
 </body>

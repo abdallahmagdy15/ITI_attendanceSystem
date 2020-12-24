@@ -73,3 +73,10 @@ white
     background-color: #BF2A37;
     color: white;
 }
+.logout{
+    width: 5rem;
+    height: 2.5rem;
+    color: #A62631;
+    text-decoration: underline;
+    font-weight: bold;
+}
