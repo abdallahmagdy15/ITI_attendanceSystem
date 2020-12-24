@@ -1,0 +1,24 @@
+/* Color Theme Swatches in Hex
+***purple***
+#8836BF light
+#762EA6 medium
+#5B2A8C dark
+#A993BF brown
+#6A36D9 blue
+ */
+ @font-face {
+    font-family: 'quicksandfont';
+    src: url('../fonts/quicksandfont.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/quicksandfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/quicksandfont.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/quicksandfont.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../fonts/quicksandfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/quicksandfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+  }
+  
+ p {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     font-family:'quicksandfont', Helvetica, sans-serif;
+ }
