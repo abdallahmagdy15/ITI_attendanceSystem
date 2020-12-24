@@ -31,11 +31,11 @@ class Employee {
 
 $('#regForm').submit(function (e) {
   let emp = {};
-
+  //get form data as object
   $.each($(this).serializeArray(), function (i, kv) {
     emp[kv.name] = kv.value;
   });
-
+  //get all emp data
   fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
       console.log(emps);
