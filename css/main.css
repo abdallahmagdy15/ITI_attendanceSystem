@@ -1,19 +1,14 @@
 /* Color Theme Swatches in Hex
 
-#F205CB
-pink
+#BF2A37
+light red
 
-#7C05F2
-light purple
+#A62631
+dark red
 
-#6204BF
-medium purple
+#BF7379
+grey red
 
-#050259
-dark purple
-
-#F23827
-red
 
 */
  @font-face {
@@ -27,8 +22,18 @@ red
   }
   
  * {
-     box-sizing: border-box;
-     margin: 0;
-     padding: 0;
      font-family:'quicksandfont', Helvetica, sans-serif;
+ }
+ .btn{
+    border: 1px solid #A62631;
+ }
+ .filled {
+    background-color:#BF2A37;
+    color: white;
+ }
+ .btn:focus{
+     box-shadow:0 0 0 .12rem #bf73797e;
+ }
+ .btn.filled:hover{
+     color: white;
  }
