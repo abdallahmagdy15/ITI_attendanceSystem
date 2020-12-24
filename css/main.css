@@ -9,42 +9,67 @@ dark red
 #BF7379
 grey red
 
+#e4e3e4
+white
 
 */
- @font-face {
+@font-face {
     font-family: 'quicksandfont';
-    src: url('../fonts/quicksandfont.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/quicksandfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/quicksandfont.woff2') format('woff2'), /* Super Modern Browsers */
-         url('../fonts/quicksandfont.woff') format('woff'), /* Pretty Modern Browsers */
-         url('../fonts/quicksandfont.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('../fonts/quicksandfont.svg#svgFontName') format('svg'); /* Legacy iOS */
-  }
-  
- * {
-     font-family:'quicksandfont', Helvetica, sans-serif;
-     font-weight: bold;
- }
- .btn{
+    src: url('../fonts/quicksandfont.eot');
+    /* IE9 Compat Modes */
+    src: url('../fonts/quicksandfont.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('../fonts/quicksandfont.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('../fonts/quicksandfont.woff') format('woff'),
+        /* Pretty Modern Browsers */
+        url('../fonts/quicksandfont.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('../fonts/quicksandfont.svg#svgFontName') format('svg');
+    /* Legacy iOS */
+}
+
+* {
+    font-family: 'quicksandfont', Helvetica, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.btn {
     border: 1px solid #A62631;
- }
- .filled {
-    background-color:#BF2A37;
+}
+
+.filled {
+    background-color: #BF2A37;
     color: white;
- }
- .form-control{
-     border: 1px solid #b1888b98;
- }
- .btn:focus , .form-control:focus{
-     box-shadow:0 0 0 .12rem #BF7379;
- }
- 
- .btn.filled:hover{
-     color: white;
- }
- .form-group{
-     margin-bottom: .8rem;
- }
- .container-fluid {
-     padding-top: 1rem;
- }
+}
+
+.form-control {
+    border: 1px solid #b1888b98;
+}
+
+.btn:focus,
+.form-control:focus {
+    box-shadow: 0 0 0 .12rem #BF7379;
+}
+
+.btn.filled:hover {
+    color: white;
+}
+
+.form-group {
+    margin-bottom: .8rem;
+}
+
+.container-fluid {
+    padding-top: 1rem;
+}
+.nav-tabs .nav-link {
+    color: black;
+}
+.nav-tabs .nav-link.active {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #BF2A37;
+    color: white;
+}
