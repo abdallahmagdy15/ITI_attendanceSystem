@@ -23,6 +23,7 @@ grey red
   
  * {
      font-family:'quicksandfont', Helvetica, sans-serif;
+     font-weight: bold;
  }
  .btn{
     border: 1px solid #A62631;
@@ -31,9 +32,19 @@ grey red
     background-color:#BF2A37;
     color: white;
  }
- .btn:focus{
-     box-shadow:0 0 0 .12rem #bf73797e;
+ .form-control{
+     border: 1px solid #b1888b98;
  }
+ .btn:focus , .form-control:focus{
+     box-shadow:0 0 0 .12rem #BF7379;
+ }
+ 
  .btn.filled:hover{
      color: white;
+ }
+ .form-group{
+     margin-bottom: .8rem;
+ }
+ .container-fluid {
+     padding-top: 1rem;
  }

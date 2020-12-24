@@ -12,6 +12,38 @@
 </head>
 
 <body>
+    <div class="container-fluid">
+        <header class="row">
+            <a href="index.html"><img src="img/header.png" class="col-12 col-sm-8 offset-sm-2" alt=""></a>
+        </header>
+        <div class="row">
+            <h1 class="mt-2 text-center">Register new employee</h1>
+            <form class="col-12 col-sm-8 offset-sm-2" method="post">
+                <div class="form-group">
+                    <label for="fname">First Name:</label>
+                    <input id="fname" class="form-control" type="text" placeholder="Enter your first name">
+                </div>
+                <div class="form-group">
+                    <label for="lname">Last Name:</label>
+                    <input id="lname" class="form-control" type="text" placeholder="Enter your last name">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input id="address" class="form-control" type="text" placeholder="Enter your address">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input id="email" class="form-control" type="text" placeholder="Enter your email">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="age">Age:</label>
+                    <input id="age" class="form-control" type="number" placeholder="Enter your Age">
+                </div>
+                <button type="submit" class="btn filled">Register</button>
+                <a href="/login_page.html" class="btn loginbtn">Login</a>
+            </form>
+        </div>
+    </div>
     <!--js libs-->
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
