@@ -40,7 +40,7 @@ function confirmAttendance(record, emps) {
     empMonthObj.days.push({
         day:record.time.getDay(),
         attended:"true",
-        time:formatAMPM(record.time)
+        time:record.time
     });
 
     //download data

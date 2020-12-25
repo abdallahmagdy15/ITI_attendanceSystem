@@ -37,7 +37,7 @@ function onSubmitEmp(form) {
   $.each(form.serializeArray(), function (i, kv) {
     emp[kv.name] = kv.value;
   });
-  emp.dateofemp = new Date();
+  emp.dateofemp = (new Date());
   //define default attendance array of months objects
   var attendance = [];
   for(var i=1;i<13;i++)
