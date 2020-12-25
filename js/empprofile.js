@@ -30,3 +30,4 @@ function loadEmpData(emp) {
         $('#profileOptions').append('<li  class="optionlist"><a href="attendance_page.html">Take Attendance</a></li>');
     }
 }
+

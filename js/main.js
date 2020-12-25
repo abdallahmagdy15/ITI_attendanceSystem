@@ -4,9 +4,9 @@ function logout() {
 
 function createUserSession(emp) {
     sessionStorage.setItem('username', emp.username);
-  }
-  
-function getEmp(emps , username) {
+}
+
+function getEmp(emps, username) {
     for (i in emps) {
         if (username == emps[i].username)
             return emps[i];
@@ -33,4 +33,15 @@ function showAlert(title, content, buttons) {
     }
 
     modal.modal('show');
+}
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
 }

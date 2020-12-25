@@ -38,6 +38,15 @@ function onSubmitEmp(form) {
     emp[kv.name] = kv.value;
   });
   emp.dateofemp = new Date();
+  //define default attendance array of months objects
+  var attendance = [];
+  for(var i=1;i<13;i++)
+    attendance.push({
+      month:i,
+      days:[]
+  });
+  emp.attendance = attendance;
+  
   //get all emp data
   fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
@@ -56,7 +65,7 @@ function registerEmpData(emp, emps, adminMail) {
   var _blob = new Blob([JSON.stringify(emps)], {
     type: "application/json"
   });
-  console.log("*******",emp);
+  console.log("*******", emp);
   let downloadLink = document.createElement('a');
   downloadLink.href = window.webkitURL.createObjectURL(_blob);
   downloadLink.setAttribute("download", "employees.json");
