@@ -33,7 +33,8 @@ $('#loginForm').submit(function (e) {
         createUserSession(emp);
         window.location.replace('../emp_profile.html');
       } else {
-        alert('wrong username or password !'); ///*** */ needs UI enhancements
+        showAlert('Login Failed','wrong username or password !',1);
+        //alert('wrong username or password !'); ///*** */ needs UI enhancements
       }
     })
     .catch(emps => {
@@ -45,7 +46,7 @@ $('#loginForm').submit(function (e) {
 
 function checkLoginCredentials(emp, emps) {
   for (e in emps) {
-    if (emp.username == emps[e].username && emp.password == emps[e].password) 
+    if (emp.username == emps[e].username && emp.password == emps[e].password)
       return true;
   }
   return false;
