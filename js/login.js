@@ -45,11 +45,10 @@ $('#loginForm').submit(function (e) {
 
 function checkLoginCredentials(emp, emps) {
   for (e in emps) {
-    if (emp.username == emps[e].username && emp.password == emps[e].password) {
+    if (emp.username == emps[e].username && emp.password == emps[e].password) 
       return true;
-    }
-    return false;
   }
+  return false;
 }
 
 function createUserSession(emp) {

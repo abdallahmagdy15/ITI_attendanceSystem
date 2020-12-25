@@ -5,14 +5,14 @@ $(function () {
     });
 })
 let usernameSession = sessionStorage.getItem('username');
-if(usernameSession == undefined)
+if (usernameSession == undefined)
     location.replace('../login_page.html');
 //load current user data
 fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
         console.log(emps);
         let emp = getEmp(emps);
-        if(emp != false)
+        if (emp != false)
             loadEmpData(emp);
     })
     .catch(emps => {
@@ -27,10 +27,13 @@ function getEmp(emps) {
     return false
 }
 
-function loadEmpData(emp) { 
-    $('#empName').text(emp.fname + " " + emp.lname );
+function loadEmpData(emp) {
+    $('#empName').text(emp.fname + " " + emp.lname);
     $('#profileEmail').text(emp.email);
     $('#profileAddress').text(emp.address);
     $('#profileAge').text(emp.age);
     $('#profileDoE').text(emp.dateofemp);
- }
+    if (emp.subadmin != undefined) {
+        $('#profileOptions').append('<li  class="optionlist"><a href="attendance_page.html">Take Attendance</a></li>');
+    }
+}
