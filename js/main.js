@@ -2,6 +2,18 @@ function logout() {
     sessionStorage.clear();
 }
 
+function createUserSession(emp) {
+    sessionStorage.setItem('username', emp.username);
+  }
+  
+function getEmp(emps , username) {
+    for (i in emps) {
+        if (username == emps[i].username)
+            return emps[i];
+    }
+    return false
+}
+
 function showAlert(title, content, buttons) {
     let modal = $('#alertmodal');
     // Update the modal's content.
@@ -10,7 +22,7 @@ function showAlert(title, content, buttons) {
     let modalFooter = $('.modal-footer');
 
     modalTitle.text(title);
-    modalBody.html('<p>' + content + '</p>');
+    modalBody.html(content);
     switch (buttons) {
         case 1:
             modalFooter.html('<button type="button" class="btn" data-bs-dismiss="modal">Close</button>');

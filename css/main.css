@@ -120,3 +120,6 @@ a:hover {
 .dropdown-menu {
     box-shadow:  0px 0px 5px 2px var(--smoke);
 }
+.modal-title {
+    color: var(--darkred);
+}

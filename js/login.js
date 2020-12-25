@@ -6,9 +6,11 @@
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function (form) {
       form.addEventListener('submit', function (event) {
+        event.preventDefault();
         if (form.checkValidity() === false) {
-          event.preventDefault();
           event.stopPropagation();
+        } else {
+          loginToSystem($(this));
         }
         form.classList.add('was-validated');
       }, false);
@@ -17,11 +19,10 @@
 })();
 
 
-$('#loginForm').submit(function (e) {
+function loginToSystem(form) {
   let emp = {};
-  let formAction;
   //get form data as object
-  $.each($(this).serializeArray(), function (i, kv) {
+  $.each(form.serializeArray(), function (i, kv) {
     emp[kv.name] = kv.value;
   });
   //get all emp data
@@ -33,16 +34,15 @@ $('#loginForm').submit(function (e) {
         createUserSession(emp);
         window.location.replace('../emp_profile.html');
       } else {
-        showAlert('Login Failed','wrong username or password !',1);
-        //alert('wrong username or password !'); ///*** */ needs UI enhancements
+        showAlert('Login Failed', 'wrong username or password !', 1);
       }
     })
     .catch(emps => {
       console.log("failed to load employees json file");
     });
-
   return false;
-});
+}
+
 
 function checkLoginCredentials(emp, emps) {
   for (e in emps) {
@@ -50,8 +50,4 @@ function checkLoginCredentials(emp, emps) {
       return true;
   }
   return false;
-}
-
-function createUserSession(emp) {
-  sessionStorage.setItem('username', emp.username);
 }

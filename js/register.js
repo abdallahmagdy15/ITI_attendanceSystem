@@ -7,9 +7,11 @@
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function (form) {
       form.addEventListener('submit', function (event) {
+        event.preventDefault();
         if (form.checkValidity() === false) {
-          event.preventDefault();
           event.stopPropagation();
+        } else {
+          onSubmitEmp($(this));
         }
         form.classList.add('was-validated');
       }, false);
@@ -29,10 +31,10 @@ class Employee {
 }
 
 
-$('#regForm').submit(function (e) {
+function onSubmitEmp(form) {
   let emp = {};
   //get form data as object
-  $.each($(this).serializeArray(), function (i, kv) {
+  $.each(form.serializeArray(), function (i, kv) {
     emp[kv.name] = kv.value;
   });
   emp.dateofemp = new Date();
@@ -45,11 +47,8 @@ $('#regForm').submit(function (e) {
     .catch(emps => {
       console.log("failed to load employees json file");
     });
-
-
   return false;
-});
-
+}
 
 function registerEmpData(emp, emps, adminMail) {
   emps.push(emp);
@@ -57,6 +56,7 @@ function registerEmpData(emp, emps, adminMail) {
   var _blob = new Blob([JSON.stringify(emps)], {
     type: "application/json"
   });
+  console.log("*******",emp);
   let downloadLink = document.createElement('a');
   downloadLink.href = window.webkitURL.createObjectURL(_blob);
   downloadLink.setAttribute("download", "employees.json");
@@ -64,5 +64,5 @@ function registerEmpData(emp, emps, adminMail) {
   downloadLink.href = 'mailto:' + adminMail;
   downloadLink.setAttribute("download", "false");
   downloadLink.click();
-  alert("Registration request has been sent to the admin for  the approvement!"); ///*** */ need UI enhancement 
+  showAlert('Registration Status', 'Registration request has been sent to the admin for  the approvement!', 1);
 }

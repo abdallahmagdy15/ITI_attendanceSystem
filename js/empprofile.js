@@ -11,7 +11,7 @@ if (usernameSession == undefined)
 fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
         console.log(emps);
-        let emp = getEmp(emps);
+        let emp = getEmp(emps , usernameSession);
         if (emp != false)
             loadEmpData(emp);
     })
@@ -19,13 +19,6 @@ fetch('../data/employees.json').then((emps) => emps.json())
         console.log("failed to load employees json file");
     });
 
-function getEmp(emps) {
-    for (i in emps) {
-        if (usernameSession == emps[i].username)
-            return emps[i];
-    }
-    return false
-}
 
 function loadEmpData(emp) {
     $('#empName').text(emp.fname + " " + emp.lname);
