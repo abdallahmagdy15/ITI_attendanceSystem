@@ -30,9 +30,12 @@ function loginToSystem(form) {
     .then(emps => {
       console.log(emps);
       let status = checkLoginCredentials(emp, emps);
-      if (status) {
+      if (status > 0) {
         createUserSession(emp);
-        window.location.replace('../emp_profile.html');
+        if (status == 1) /// normal employee
+          window.location.replace('../emp_profile.html');
+        else /// admin
+          window.location.replace('../admin_panel.html');
       } else {
         showAlert('Login Failed', 'wrong username or password !', 1);
       }
@@ -46,8 +49,13 @@ function loginToSystem(form) {
 
 function checkLoginCredentials(emp, emps) {
   for (e in emps) {
-    if (emp.username == emps[e].username && emp.password == emps[e].password)
-      return true;
+    if (emp.username == emps[e].username && emp.password == emps[e].password) {
+      if (emps[e].admin == undefined) //** if normal employee return "1" **//
+        return 1;
+      ///** else if admin return "2" **//
+      return 2;
+    }
   }
-  return false;
+  ///** if not valid credentials return "0" */
+  return 0;
 }

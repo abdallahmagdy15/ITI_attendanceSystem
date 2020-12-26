@@ -27,28 +27,26 @@
             <div class="col-12 admin-reports">
                 <ul class="nav nav-tabs" id="reportsTabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="monthly-tab" data-toggle="tab" href="#monthlyReport"
+                        <a class="nav-link active" id="monthly-tab" data-toggle="tab" href="#allemps"
                             role="tab">All Employees</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="fullreport-tab" data-toggle="tab" href="#fullreport" role="tab"
-                            aria-controls="allemps" aria-selected="false">Full Report</a>
+                        <a class="nav-link" id="fullreport-tab" data-toggle="tab" href="#fullreport" role="tab">Full Report</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="latereport-tab" data-toggle="tab" href="#latereport" role="tab"
-                            aria-controls="monthly" aria-selected="true">Late Report</a>
+                        <a class="nav-link" id="latereport-tab" data-toggle="tab" href="#latereport" role="tab">Late Report</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="absencereport-tab" data-toggle="tab" href="#absencereport" role="tab"
-                            aria-controls="monthly" aria-selected="true">Absence Report</a>
+                            >Absence Report</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="execusereport-tab" data-toggle="tab" href="#execusereport" role="tab"
-                            aria-controls="daily" aria-selected="false">Execuse Report</a>
+                            >Execuse Report</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests" role="tab"
-                            aria-controls="daily" aria-selected="false">Registration Requests</a>
+                            >Registration Requests</a>
                     </li>
                 </ul>
 
@@ -68,15 +66,13 @@
                         </table>
                     </div>
                     <div class="tab-pane" id="fullreport" role="tabpanel" aria-labelledby="fullreport-tab">
-                        <div>
-                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
-                                data-onstyle="success" data-offstyle="warning">
-                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th id="fullreportTitle"></th>
+                                    <th>Employee Name</th>
+                                    <th>Attendance</th>
+                                    <th>Late Times</th>
+                                    <th>Absent Times</th>
                                 </tr>
                             </thead>
                             <tbody id="fullreportRows">
