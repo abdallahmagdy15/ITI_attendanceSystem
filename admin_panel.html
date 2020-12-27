@@ -27,26 +27,25 @@
             <div class="col-12 admin-reports">
                 <ul class="nav nav-tabs" id="reportsTabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="monthly-tab" data-toggle="tab" href="#allemps"
-                            role="tab">All Employees</a>
+                        <a class="nav-link active" id="monthly-tab" data-toggle="tab" href="#allemps" role="tab">All
+                            Employees</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="fullreport-tab" data-toggle="tab" href="#fullreport" role="tab">Full Report</a>
+                        <a class="nav-link" id="fullreport-tab" data-toggle="tab" href="#fullreport" role="tab">Full
+                            Report</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="latereport-tab" data-toggle="tab" href="#latereport" role="tab">Late Report</a>
+                        <a class="nav-link" id="latereport-tab" data-toggle="tab" href="#latereport" role="tab">Late
+                            Report</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="absencereport-tab" data-toggle="tab" href="#absencereport" role="tab"
-                            >Absence Report</a>
+                        <a class="nav-link" id="absencereport-tab" data-toggle="tab" href="#absencereport"
+                            role="tab">Absence Report</a>
+                    </li>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="execusereport-tab" data-toggle="tab" href="#execusereport" role="tab"
-                            >Execuse Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests" role="tab"
-                            >Registration Requests</a>
+                        <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests" role="tab">Registration
+                            Requests</a>
                     </li>
                 </ul>
 
@@ -60,91 +59,67 @@
                                     <th>Attendance Admin</th>
                                 </tr>
                             </thead>
-                            <tbody id="allempsRows">
+                            <tbody class="reportTBody" id="allempsRows">
 
                             </tbody>
                         </table>
                     </div>
                     <div class="tab-pane" id="fullreport" role="tabpanel" aria-labelledby="fullreport-tab">
+                        <div>
+                            <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
+                                data-onstyle="success" data-offstyle="warning" id="fullreportSwitch" class="displayperSwitch">
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Employee Name</th>
-                                    <th>Attendance</th>
+                                    <th>Attendance Times</th>
                                     <th>Late Times</th>
                                     <th>Absent Times</th>
                                 </tr>
                             </thead>
-                            <tbody id="fullreportRows">
+                            <tbody class="reportTBody" id="fullreportRows">
 
                             </tbody>
                         </table>
                     </div>
                     <div class="tab-pane" id="latereport" role="tabpanel" aria-labelledby="latereport-tab">
                         <div>
-                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
-                                data-onstyle="success" data-offstyle="warning">
+                            <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
+                                data-onstyle="success" data-offstyle="warning" id="latereportSwitch" class="displayperSwitch">
                         </div>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th id="latereportTitle"></th>
+                                    <th>Employee Name</th>
+                                    <th>Late Times</th>
                                 </tr>
                             </thead>
-                            <tbody id="latereportRows">
+                            <tbody class="reportTBody" id="latereportRows">
 
                             </tbody>
                         </table>
                     </div>
                     <div class="tab-pane" id="absencereport" role="tabpanel" aria-labelledby="absencereport-tab">
                         <div>
-                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
-                                data-onstyle="success" data-offstyle="warning">
+                            <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
+                                data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
+                                data-onstyle="success" data-offstyle="warning" id="absentreportSwitch" class="displayperSwitch">
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th id="absencereportTitle"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="absencereportRows">
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="execusereport" role="tabpanel" aria-labelledby="execusereport-tab">
-                        <div>
-                            <label class="m-3">Display by </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Month" data-off="Employee"
-                                data-onstyle="success" data-offstyle="warning">
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th id="execusereportTitle"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="execusereportRows">
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="requests" role="tabpanel" aria-labelledby="requests-tab">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Employee Name</th>
-                                    <th></th>
+                                    <th>Absent Times</th>
                                 </tr>
                             </thead>
-                            <tbody id="requestsRows">
+                            <tbody  class="reportTBody" id="absencereportRows">
 
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

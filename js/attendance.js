@@ -38,7 +38,7 @@ function confirmAttendance(record, emps) {
     }
     
     empMonthObj.days.push({
-        day:record.time.getDay(),
+        day:record.time.getDate(),
         attended:"true",
         time:record.time
     });

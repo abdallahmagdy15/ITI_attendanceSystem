@@ -94,7 +94,7 @@ function getMonthly(emp) {
         if (now.getMonth() > months[i].month)
             absent = 30 - atten;
         else if (now.getMonth() == months[i].month)
-            absent = now.getDay() - atten;
+            absent = now.getDate() - atten;
         else
             break;
         monthlyReport.push({
@@ -114,22 +114,32 @@ function getDaily(emp) {
     let dailyReport = [];
     var late = 0,
         i = 0;
-    for (var j = 1; j <= (new Date()).getDay(); j++) {
-        dayObj = currMonth.days[i];
-        if (dayObj.day == j) {
-            late = ((new Date(dayObj.time)).getTime() > (new Date(dayObj.time)).setHours(9, 0, 0)) ? 1 : 0;
-            dailyReport.push({
-                day: j,
-                time: dayObj.time,
-                late: late
-            });
-            i++;
-        } else
+    if (currMonth.days.length == 0) ///check days array for cuur month is empty or not
+        for (var j = 1; j <= (new Date()).getDate(); j++) { // push empty days 
             dailyReport.push({
                 day: j,
                 time: 0,
                 late: 0
             });
-    }
+        }
+    else
+        for (var j = 1; j <= (new Date()).getDate(); j++) {
+            dayObj = currMonth.days[i];
+            if (dayObj.day == j) {
+                late = ((new Date(dayObj.time)).getTime() > (new Date(dayObj.time)).setHours(9, 0, 0)) ? 1 : 0;
+                dailyReport.push({
+                    day: j,
+                    time: dayObj.time,
+                    late: late
+                });
+                if (i < currMonth.days.length - 1) /// stop looping for days array
+                    i++;
+            } else
+                dailyReport.push({
+                    day: j,
+                    time: 0,
+                    late: 0
+                });
+        }
     return dailyReport;
 }
