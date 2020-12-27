@@ -29,6 +29,7 @@ fetch('../data/employees.json').then((emps) => emps.json())
         showFullReport(emps);
         showLateReport(emps);
         showAbsenceReport(emps);
+        showRequests(emps);
 
         ///reload reports based on "per" switch
         $(function () {
@@ -49,10 +50,23 @@ fetch('../data/employees.json').then((emps) => emps.json())
         //showRequests();
         //make tr clickable for showing details for master
         $(function () {
-            $("tbody.reportTBody").on('click','tr,td.tdToggleCollapse',function (e) {
+            $("tbody.reportTBody").on('click', 'tr,td.tdToggleCollapse', function (e) {
                 e.preventDefault();
                 let collapseId = $(this).attr('data-target');
                 $(collapseId).toggle('show');
+            });
+        });
+
+        ///accept request 
+        $(function () {
+            $("td").on('click', 'button.request', function (e) {
+                e.preventDefault();
+                if ($(this).hasClass('acceptRequest'))
+                    acceptRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
+                else
+                    rejectRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
+                //reload requests
+                showRequests(emps);
             });
         });
     })
@@ -280,4 +294,42 @@ function showAbsenceReport(emps, per = "curryear") {
     }
 
     $('#absencereportRows').html(rows);
+}
+
+
+function showRequests(emps) {
+    let rows = "";
+    //loop on emps only not admin
+    for (i in emps) {
+        if (emps[i].new != undefined) { /// if emp has new 
+            rows += `
+            <tr>
+            <td class="toggleCollapse tdToggleCollapse" data-target="#requests${i}">
+            <p>${emps[i].fname+" "+emps[i].lname}</p>
+            <div id="requests${i}" class="collapse">
+                <div class="card-body">
+                    <label>Username:  </label><span> ${emps[i].username}</span><br>
+                    <label>Email:  </label><span> ${emps[i].email}</span><br>
+                    <label>Address:  </label><span> ${emps[i].address}</span><br>
+                    <label>Age:  </label><span> ${emps[i].age}</span><br>
+                </div>
+            </div>
+            </td>
+            <td empid="${i}">
+            <button class="acceptRequest btn filled">Accept</button>
+            <button class="rejectRequest btn">Reject</button>
+            </td>
+            </tr>
+            `;
+        }
+    }
+    $('#requestsRows').html(rows);
+}
+
+function acceptRequest(emps, i) {
+
+}
+
+function rejectRequest(emps, i) {
+    
 }
