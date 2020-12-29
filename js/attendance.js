@@ -32,7 +32,7 @@ function confirmAttendance(record, emps) {
         empMonthObj = emps.filter(e => e.code === record.code)[0]
             .attendance.filter(a => a.month === record.time.getMonth())[0];
     } catch {
-        console.log("this employee has no attendance records!");
+        showAlert('Code is not correct','Please enter the correct one!',1);
         return;
     }
     let time = new Date(dayObj.time);

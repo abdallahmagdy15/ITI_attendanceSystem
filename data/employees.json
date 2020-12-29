@@ -1,1 +1,72 @@
-[{"admin":"","fname":"Admin","lname":"El-Khayyat","username":"admin","password":"123","email":"abdallah.magdy1515@gmail.com","age":"22"},{"subadmin":"","fname":"Abdallah","lname":"El-Khayyat","username":"aa","password":"123","address":"none","email":"abdallah.magdy1515@gmail.com","age":"22","dateofemp":"2020-12-25T20:19:05.233Z","attendance":[{"month":1,"days":[]},{"month":2,"days":[]},{"month":3,"days":[]},{"month":4,"days":[]},{"month":5,"days":[]},{"month":6,"days":[]},{"month":7,"days":[]},{"month":8,"days":[]},{"month":9,"days":[]},{"month":10,"days":[]},{"month":11,"days":[]},{"month":12,"days":[]}]},{"new":"","fname":"walid","lname":"magdy","username":"ww","password":"123","address":"none","email":"walidmagdy124@gmail.com","age":"19","dateofemp":"2020-12-25T20:23:28.377Z","attendance":[{"month":1,"days":[]},{"month":2,"days":[]},{"month":3,"days":[]},{"month":4,"days":[]},{"month":5,"days":[]},{"month":6,"days":[]},{"month":7,"days":[]},{"month":8,"days":[]},{"month":9,"days":[]},{"month":10,"days":[]},{"month":11,"days":[{"day":5,"attended":"true","time":"2020-12-25T20:26:38.601Z"}]},{"month":12,"days":[]}]}]
+[
+  {
+    "admin": "",
+    "fname": "Admin",
+    "lname": "El-Khayyat",
+    "username": "admin",
+    "password": "123",
+    "email": "abdallah.magdy1515@gmail.com",
+    "age": "22"
+  },
+  {
+    "subadmin": "",
+    "fname": "Abdallah",
+    "lname": "El-Khayyat",
+    "username": "aa",
+    "password": "123",
+    "address": "none",
+    "email": "abdallah.magdy1515@gmail.com",
+    "age": "22",
+    "dateofemp": "2020-12-25T20:19:05.233Z",
+    "attendance": [
+      {
+        "month": 1,
+        "days": []
+      },
+      {
+        "month": 2,
+        "days": []
+      },
+      {
+        "month": 3,
+        "days": []
+      },
+      {
+        "month": 4,
+        "days": []
+      },
+      {
+        "month": 5,
+        "days": []
+      },
+      {
+        "month": 6,
+        "days": []
+      },
+      {
+        "month": 7,
+        "days": []
+      },
+      {
+        "month": 8,
+        "days": []
+      },
+      {
+        "month": 9,
+        "days": []
+      },
+      {
+        "month": 10,
+        "days": []
+      },
+      {
+        "month": 11,
+        "days": []
+      },
+      {
+        "month": 12,
+        "days": []
+      }
+    ]
+  }
+]

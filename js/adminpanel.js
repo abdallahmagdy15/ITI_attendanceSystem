@@ -57,14 +57,16 @@ fetch('../data/employees.json').then((emps) => emps.json())
             });
         });
 
-        ///accept request 
+        ///handle request 
         $(function () {
             $("td").on('click', 'button.request', function (e) {
                 e.preventDefault();
                 if ($(this).hasClass('acceptRequest'))
                     acceptRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
-                else
+                else {
                     rejectRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
+                    $(this).parent().parent().remove(); /// remove tr
+                }
                 //reload requests
                 showRequests(emps);
             });
@@ -76,9 +78,9 @@ fetch('../data/employees.json').then((emps) => emps.json())
 
 function showAllEmps(emps) {
     let rows = "";
-    //loop on emps only not admin
+    //loop on emps only not admin or new 
     for (i in emps) {
-        if (emps[i].admin == undefined) {
+        if (emps[i].admin == undefined && emps[i].new == undefined) {
             rows += `
             <tr>
             <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${i}">
@@ -89,6 +91,7 @@ function showAllEmps(emps) {
                     <label>Email:  </label><span> ${emps[i].email}</span><br>
                     <label>Address:  </label><span> ${emps[i].address}</span><br>
                     <label>Age:  </label><span> ${emps[i].age}</span><br>
+                    <label>Code:  </label><span> ${emps[i].code}</span><br>
                 </div>
             </div>
             </td>
@@ -102,9 +105,9 @@ function showAllEmps(emps) {
 
 function showFullReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or subadmin
+    //loop on emps only not admin or subadmin or new emp
     for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].subadmin == undefined) {
+        if (emps[i].admin == undefined && emps[i].subadmin == undefined && emps[i].new == undefined) {
             let masterReport = {};
             let detailReport = [];
             let detailColHeads = "";
@@ -152,7 +155,7 @@ function showFullReport(emps, per = "curryear") {
                             <tr>
                                 <td>${detailReport[j][detailReportKeys[0]]}</td>
                                 <td>${detailReport[j][detailReportKeys[1]]}</td>
-                                <td>${detailReport[j][detailReportKeys[2]]}</td>
+                                <td>${detailReport[j][detailReportKeys[3]]}</td>
                             </tr>`;
             }
             rows += `
@@ -171,9 +174,9 @@ function showFullReport(emps, per = "curryear") {
 
 function showLateReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or subadmin
+    //loop on emps only not admin or subadmin or new emps
     for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].subadmin == undefined) {
+        if (emps[i].admin == undefined && emps[i].subadmin == undefined && emps[i].new == undefined) {
             let masterReport = {};
             let detailReport = [];
             let detailColHeads = "";
@@ -217,7 +220,7 @@ function showLateReport(emps, per = "curryear") {
                             <tr>
                                 <td>${detailReport[j][detailReportKeys[0]]}</td>
                                 <td>${detailReport[j][detailReportKeys[1]]}</td>
-                                <td>${detailReport[j][detailReportKeys[2]]}</td>
+                                <td>${detailReport[j][detailReportKeys[3]]}</td>
                             </tr>`;
             }
             rows += `
@@ -236,9 +239,9 @@ function showLateReport(emps, per = "curryear") {
 
 function showAbsenceReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or subadmin
+    //loop on emps only not admin or subadmin or new
     for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].subadmin == undefined) {
+        if (emps[i].admin == undefined && emps[i].subadmin == undefined && emps[i].new == undefined) {
             let masterReport = {};
             let detailReport = [];
             let detailColHeads = "";
@@ -298,10 +301,12 @@ function showAbsenceReport(emps, per = "curryear") {
 
 
 function showRequests(emps) {
-    let rows = "";
+    let rows = "",
+        requests = 0;
     //loop on emps only not admin
     for (i in emps) {
         if (emps[i].new != undefined) { /// if emp has new 
+            requests++;
             rows += `
             <tr>
             <td class="toggleCollapse tdToggleCollapse" data-target="#requests${i}">
@@ -324,12 +329,42 @@ function showRequests(emps) {
         }
     }
     $('#requestsRows').html(rows);
+    $('#reqNotifis').text(requests);
 }
 
 function acceptRequest(emps, i) {
-    
+    delete emps[i].new;
+    emps[i].code = makecode(10);
+    //download data
+    var _blob = new Blob([JSON.stringify(emps)], {
+        type: "application/json"
+    });
+    console.log("*******", emp);
+    let downloadLink = document.createElement('a');
+    downloadLink.href = window.webkitURL.createObjectURL(_blob);
+    downloadLink.setAttribute("download", "employees.json");
+    downloadLink.click();
 }
 
 function rejectRequest(emps, i) {
-    
+    emps[i].splice(i, 1);
+    //download data
+    var _blob = new Blob([JSON.stringify(emps)], {
+        type: "application/json"
+    });
+    console.log("*******", emp);
+    let downloadLink = document.createElement('a');
+    downloadLink.href = window.webkitURL.createObjectURL(_blob);
+    downloadLink.setAttribute("download", "employees.json");
+    downloadLink.click();
+}
+
+function makecode(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
