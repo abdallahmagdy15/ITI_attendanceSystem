@@ -11,3 +11,7 @@ h2 {
     background-color: var(--smoke);
     color: var(--darkred);
 }
+
+td input{
+    margin-top: .9rem;
+}

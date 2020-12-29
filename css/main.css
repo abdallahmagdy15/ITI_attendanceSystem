@@ -3,7 +3,8 @@
     --lightred: #BF2A37;
     --darkred: #A62631;
     --greyred: #BF7379;
-    --smoke: rgb(216 216 216)
+    --smoke: rgb(216 216 216);
+    --lightsmoke: rgb(228 228 228);
 }
 
 @font-face {
@@ -128,4 +129,17 @@ a:hover {
 }
 td , th{
     padding: .5rem 1rem;
+}
+thead tr {
+    background-color: var(--smoke);
+}
+p{
+    margin: .5rem 0;
+}
+tbody.reportTBody > tr:hover {
+    cursor: pointer;
+    background-color: var(--lightsmoke);
+}
+th{
+    color: var(--darkred);
 }
