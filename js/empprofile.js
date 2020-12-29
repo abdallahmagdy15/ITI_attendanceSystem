@@ -57,7 +57,7 @@ function showDailyReport(reportRows) {
         <tr>
         <td>${reportRows[i].day}</td>
         <td>${reportRows[i].time}</td>
-        <td>${reportRows[i].late}</td>
+        <td>${reportRows[i].lateTime}</td>
         </tr>
         `;
     }

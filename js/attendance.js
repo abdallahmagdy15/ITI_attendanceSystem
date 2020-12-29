@@ -26,21 +26,23 @@ function formSubmitHandler(emps) {
 }
 
 function confirmAttendance(record, emps) {
-    //get emp obj by username
+    //get emp obj by code
     let empMonthObj;
-    try{
-    empMonthObj = emps.filter(e => e.username === record.username)[0]
-         .attendance.filter(a => a.month === record.time.getMonth())[0];
-    }
-    catch{
+    try {
+        empMonthObj = emps.filter(e => e.code === record.code)[0]
+            .attendance.filter(a => a.month === record.time.getMonth())[0];
+    } catch {
         console.log("this employee has no attendance records!");
         return;
     }
-    
+    let time = new Date(dayObj.time);
+    let ruleTime = (new Date(dayObj.time)).setHours(9, 0, 0);
+    let late = late = ((new Date(dayObj.time)).getTime() > (new Date(dayObj.time)).setHours(9, 0, 0)) ? 1 : 0;
     empMonthObj.days.push({
-        day:record.time.getDate(),
-        attended:"true",
-        time:record.time
+        day: record.time.getDate(),
+        attended: "true",
+        time: record.time,
+        lateTime: calcLatency(time, ruleTime)
     });
 
     //download data
@@ -64,4 +66,11 @@ function confirmAttendance(record, emps) {
         .catch(emps => {
             console.log("failed to load employees json file");
         });
+}
+
+function calcLatency(time, ruleTime) {
+    if (time > ruleTime)
+        return Math.abs(time.getTime() - ruleTime.getTime())
+    else // not late
+        return 0;
 }
