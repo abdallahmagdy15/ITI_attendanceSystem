@@ -32,10 +32,16 @@ function loginToSystem(form) {
       let status = checkLoginCredentials(emp, emps);
       if (status > 0) {
         createUserSession(emp);
-        if (status == 1) /// normal employee
-          window.location.replace('../emp_profile.html');
-        else /// admin
+
+        if (status == 1) /// if admin
           window.location.replace('../admin_panel.html');
+
+        else if (status == 2) /// if new emp who can`t login
+          showAlert('Request Not', 'Your registration request not accepted yet!', 1);
+
+        else /// then he is normal emp
+          window.location.replace('../emp_profile.html');
+
       } else {
         showAlert('Login Failed', 'wrong username or password !', 1);
       }
@@ -50,10 +56,12 @@ function loginToSystem(form) {
 function checkLoginCredentials(emp, emps) {
   for (e in emps) {
     if (emp.username == emps[e].username && emp.password == emps[e].password) {
-      if (emps[e].admin == undefined) //** if normal employee return "1" **//
+      if (emps[e].admin != undefined) //** if admin return "1" **//
         return 1;
-      ///** else if admin return "2" **//
-      return 2;
+      else if (emps[e].new != undefined) //* if new emp return 2 *//
+        return 2;
+      ///** else if normal employee return "3" **//
+      return 3;
     }
   }
   ///** if not valid credentials return "0" */
