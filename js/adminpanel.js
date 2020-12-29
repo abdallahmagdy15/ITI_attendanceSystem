@@ -8,7 +8,7 @@ $(function () {
 /// check if current user is system admin
 fetch('../data/employees.json').then((emps) => emps.json())
     .then((emps) => {
-        if (getEmp(emps, sessionStorage.getItem('username')).admin == undefined) {
+        if (getEmp(getEmp(emps, sessionStorage.getItem('username')) == false || emps, sessionStorage.getItem('username')).admin == undefined) {
             $('#attendanceForm').html('');
             showAlert('Violation of User Agreement', 'Your account has been banned due to violation of our policy!', 1);
             $('#alertmodal').on('hidden.bs.modal', function (e) {
@@ -16,71 +16,78 @@ fetch('../data/employees.json').then((emps) => emps.json())
             });
         } else {
             //continue from here
+            loadAdminPanel();
         }
     });
 //_____________________
 
-//load all emps
-fetch('../data/employees.json').then((emps) => emps.json())
-    .then(emps => {
-        //continue from here
-        //create all reports (default)
-        showAllEmps(emps);
-        showFullReport(emps);
-        showLateReport(emps);
-        showAbsenceReport(emps);
-        showRequests(emps);
+function loadAdminPanel() {
+    //load all emps
+    fetch('../data/employees.json').then((emps) => emps.json())
+        .then(emps => {
+            //continue from here
+            //create all reports (default)
+            showAllEmps(emps);
+            showFullReport(emps);
+            showLateReport(emps);
+            showAbsenceReport(emps);
+            showRequests(emps);
 
-        ///reload reports based on "per" switch
-        $(function () {
-            $('.displayperSwitch').change(function () {
-                let per = "curryear";
-                if ($(this).parent().hasClass('off')) ///if per month
-                    per = "currmonth";
-                ///check for which report it was toggled
-                if ($(this).attr('id') == 'fullreportSwitch')
-                    showFullReport(emps, per);
-                else if ($(this).attr('id') == 'latereportSwitch')
-                    showLateReport(emps, per);
-                else
-                    showAbsenceReport(emps, per);
+            ///reload reports based on "per" switch
+            $(function () {
+                $('.displayperSwitch').change(function () {
+                    let per = "curryear";
+                    if ($(this).parent().hasClass('off')) ///if per month
+                        per = "currmonth";
+                    ///check for which report it was toggled
+                    if ($(this).attr('id') == 'fullreportSwitch')
+                        showFullReport(emps, per);
+                    else if ($(this).attr('id') == 'latereportSwitch')
+                        showLateReport(emps, per);
+                    else
+                        showAbsenceReport(emps, per);
+                })
             })
-        })
-        //showLateReport();
-        //showRequests();
-        //make tr clickable for showing details for master
-        $(function () {
-            $("tbody.reportTBody").on('click', 'tr,td.tdToggleCollapse', function (e) {
-                e.preventDefault();
-                let collapseId = $(this).attr('data-target');
-                $(collapseId).toggle('show');
+            //showLateReport();
+            //showRequests();
+            //make tr clickable for showing details for master
+            $(function () {
+                $("tbody.reportTBody").on('click', 'tr,td.tdToggleCollapse', function (e) {
+                    e.preventDefault();
+                    let collapseId = $(this).attr('data-target');
+                    $(collapseId).toggle('show');
+                });
             });
-        });
 
-        ///handle request 
-        $(function () {
-            $("td").on('click', 'button.request', function (e) {
-                e.preventDefault();
-                if ($(this).hasClass('acceptRequest'))
-                    acceptRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
-                else {
-                    rejectRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
-                    $(this).parent().parent().remove(); /// remove tr
-                }
-                //reload requests
-                showRequests(emps);
+            ///handle request 
+            $(function () {
+                $("td").on('click', 'button.request', function (e) {
+                    e.preventDefault();
+                    if ($(this).hasClass('acceptRequest'))
+                        acceptRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
+                    else {
+                        rejectRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
+                        $(this).parent().parent().remove(); /// remove tr
+                    }
+                    //reload requests
+                    showRequests(emps);
+                });
             });
+        })
+        .catch(emps => {
+            console.log("failed to load employees json file");
         });
-    })
-    .catch(emps => {
-        console.log("failed to load employees json file");
-    });
+}
+
 
 function showAllEmps(emps) {
-    let rows = "";
+    let rows = "",
+        checked = "";
     //loop on emps only not admin or new 
     for (i in emps) {
         if (emps[i].admin == undefined && emps[i].new == undefined) {
+            if (emps[i].subadmin != undefined) //if sub admin
+                checked = "checked";
             rows += `
             <tr>
             <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${i}">
@@ -95,7 +102,7 @@ function showAllEmps(emps) {
                 </div>
             </div>
             </td>
-            <td><input name="subadmin" type="radio"/></td>
+            <td><input name="subadmin" type="radio" ${checked} /></td>
             </tr>
             `;
         }
