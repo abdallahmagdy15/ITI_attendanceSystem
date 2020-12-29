@@ -6,9 +6,14 @@ function createUserSession(emp) {
     sessionStorage.setItem('username', emp.username);
 }
 
-function getEmp(emps, username) {
+function getEmp(emps, id) { ///username or code
     for (i in emps) {
-        if (username == emps[i].username)
+        //check if has code
+        let code = "";
+        if (emps[i].code != undefined)
+            code = emps[i].code;
+        // get emp by code or username
+        if (id == emps[i].username || id == code)
             return emps[i];
     }
     return false
@@ -89,7 +94,7 @@ function getMonthly(emp) {
         for (j in months[i].days) {
             day = months[i].days[j];
             atten += (day.attended) ? 1 : 0;
-            late += (day.lateTime > 0)?1:0;
+            late += (day.lateTime > 0) ? 1 : 0;
         }
         if (now.getMonth() > months[i].month)
             absent = 30 - atten;

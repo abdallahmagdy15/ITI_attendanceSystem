@@ -35,9 +35,8 @@ function confirmAttendance(record, emps) {
         showAlert('Code is not correct','Please enter the correct one!',1);
         return;
     }
-    let time = new Date(dayObj.time);
-    let ruleTime = (new Date(dayObj.time)).setHours(9, 0, 0);
-    let late = late = ((new Date(dayObj.time)).getTime() > (new Date(dayObj.time)).setHours(9, 0, 0)) ? 1 : 0;
+    let time = (new Date(record.time)).getTime();
+    let ruleTime = (new Date(record.time)).setHours(9, 0, 0);
     empMonthObj.days.push({
         day: record.time.getDate(),
         attended: "true",
@@ -57,7 +56,7 @@ function confirmAttendance(record, emps) {
     //get emps data to load emp name
     fetch('../data/employees.json').then((emps) => emps.json())
         .then(emps => {
-            let emp = getEmp(emps, record.username);
+            let emp = getEmp(emps, record.code);
             if (emp != false)
                 showAlert('Attendance Confirmed',
                     `<p><label>Name: </label> ${emp.fname + " " + emp.lname}</p>
@@ -70,7 +69,7 @@ function confirmAttendance(record, emps) {
 
 function calcLatency(time, ruleTime) {
     if (time > ruleTime)
-        return Math.abs(time.getTime() - ruleTime.getTime())
+        return Math.abs(time - ruleTime)
     else // not late
         return 0;
 }

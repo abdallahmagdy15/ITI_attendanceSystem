@@ -280,11 +280,15 @@ function showAbsenceReport(emps, per = "curryear") {
                                 <td>${detailReport[j][detailReportKeys[3]]}</td>
                                 <td>${detailReport[j][detailReportKeys[2]]}</td>
                             </tr>`;
-                else
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[0]]}</td>
-                            </tr>`;
+                else {
+                    //check absent days
+                    if (detailReport[j][detailReportKeys[1]] == 0)
+                        rows += `
+                    <tr>
+                        <td>${detailReport[j][detailReportKeys[0]]}</td>
+                    </tr>`;
+                }
+
             }
             rows += `
                         </tbody>
@@ -321,8 +325,8 @@ function showRequests(emps) {
             </div>
             </td>
             <td empid="${i}">
-            <button class="acceptRequest btn filled">Accept</button>
-            <button class="rejectRequest btn">Reject</button>
+            <button class="acceptRequest request btn filled">Accept</button>
+            <button class="rejectRequest request btn">Reject</button>
             </td>
             </tr>
             `;
@@ -339,7 +343,6 @@ function acceptRequest(emps, i) {
     var _blob = new Blob([JSON.stringify(emps)], {
         type: "application/json"
     });
-    console.log("*******", emp);
     let downloadLink = document.createElement('a');
     downloadLink.href = window.webkitURL.createObjectURL(_blob);
     downloadLink.setAttribute("download", "employees.json");
@@ -352,7 +355,6 @@ function rejectRequest(emps, i) {
     var _blob = new Blob([JSON.stringify(emps)], {
         type: "application/json"
     });
-    console.log("*******", emp);
     let downloadLink = document.createElement('a');
     downloadLink.href = window.webkitURL.createObjectURL(_blob);
     downloadLink.setAttribute("download", "employees.json");
