@@ -40,6 +40,25 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="lname">User name:</label>
+                    <input id="username" name="username" pattern="^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$" minlength="4" maxlength="30" class="form-control" type="text" placeholder="Enter your user name" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a valid username.
+                    </div>
+                </div><div class="form-group">
+                        <label for="lname">Password:</label>
+                    <input id="password" name="password" pattern="(?=.*\d)(?=.*[a-z]).{8,}" minlength="8" maxlength="30" class="form-control" type="password    " placeholder="Enter your password" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please a valid password.
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="address">Address:</label>
                     <input id="address" name="address" class="form-control" type="text" placeholder="Enter your address" required>
                     <div class="valid-feedback">

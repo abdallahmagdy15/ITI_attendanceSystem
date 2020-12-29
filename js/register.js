@@ -40,23 +40,35 @@ function onSubmitEmp(form) {
   emp.dateofemp = (new Date());
   //define default attendance array of months objects
   var attendance = [];
-  for(var i=1;i<13;i++)
+  for (var i = 1; i < 13; i++)
     attendance.push({
-      month:i,
-      days:[]
-  });
+      month: i,
+      days: []
+    });
   emp.attendance = attendance;
-  
+  emp.new = "";
   //get all emp data
   fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
       console.log(emps);
-      registerEmpData(emp, emps, 'abdallah.magdy1515@gmail.com'); /// *** need to get admin mail from json
+      ///check availibility of username
+      if (checkUsernameAvailibility(emp.username, emps))
+        registerEmpData(emp, emps, 'abdallah.magdy1515@gmail.com'); /// *** need to get admin mail from json
+      else
+        showAlert("Username Not Available", "This username is already taken by another employee!", 1);
     })
     .catch(emps => {
       console.log("failed to load employees json file");
     });
   return false;
+}
+
+function checkUsernameAvailibility(uname, emps) {
+  for (i in emps) {
+    if (uname == emps[i].username)
+      return false;
+  }
+  return true;
 }
 
 function registerEmpData(emp, emps, adminMail) {

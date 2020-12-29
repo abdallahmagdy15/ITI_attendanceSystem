@@ -327,7 +327,7 @@ function showRequests(emps) {
 }
 
 function acceptRequest(emps, i) {
-
+    
 }
 
 function rejectRequest(emps, i) {
