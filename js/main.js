@@ -6,7 +6,7 @@ function createUserSession(emp) {
     sessionStorage.setItem('username', emp.username);
 }
 
-function getEmp(emps, id) { ///username or code
+function getEmp(emps, id) { /// username or code
     for (i in emps) {
         //check if has code
         let code = "";
@@ -41,9 +41,10 @@ function showAlert(title, content, buttons) {
 }
 
 function formatAMPM(date) {
+    date = new Date(date);
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
+    var ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -148,4 +149,19 @@ function getDaily(emp) {
                 });
         }
     return dailyReport;
+}
+
+function readableDate(date) {
+    return (new Date(date)).toDateString();
+}
+function msToTime(duration){
+    seconds = Math.floor((duration / 1000) % 60),
+    minutes = Math.floor((duration / (1000 * 60)) % 60),
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+  return hours + " : " + minutes + " : " + seconds;
 }

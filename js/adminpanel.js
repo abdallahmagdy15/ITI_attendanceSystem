@@ -73,6 +73,13 @@ function loadAdminPanel() {
                     showRequests(emps);
                 });
             });
+
+            //handle selecting new sub admin
+            $(function () {
+                $(document).on('click', 'td.selectsubadmin', e => {
+                    selectSubAdmin(e.target, parseInt($(e.target).attr('empid')), emps);
+                });
+            });
         })
         .catch(emps => {
             console.log("failed to load employees json file");
@@ -102,12 +109,42 @@ function showAllEmps(emps) {
                 </div>
             </div>
             </td>
-            <td><input name="subadmin" type="radio" ${checked} /></td>
+            <td class="selectsubadmin" empid="${i}" ><input name="subadmin" type="radio" ${checked} /></td>
             </tr>
             `;
         }
+        checked = "";
     }
     $('#allempsRows').html(rows);
+}
+
+function selectSubAdmin(el, i, empsArray) {
+
+    if ($(el).first().attr('checked') == undefined) {
+        //delete subadmin from last sub admin
+        for (e in empsArray) {
+            if (empsArray[e].subadmin != undefined) {
+                delete empsArray[e].subadmin;
+                break;
+            }
+        }
+        // remove checked from last sub admin
+        $('.selectsubadmin input[checked]').removeAttr('checked');
+
+        //check this emp as sub admin
+        $(el).children('input').attr('checked', '');
+
+        // add subadmin property to selected emp
+        empsArray[i].subadmin = "";
+        //download data
+        var _blob = new Blob([JSON.stringify(empsArray)], {
+            type: "application/json"
+        });
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.webkitURL.createObjectURL(_blob);
+        downloadLink.setAttribute("download", "employees.json");
+        downloadLink.click();
+    }
 }
 
 function showFullReport(emps, per = "curryear") {

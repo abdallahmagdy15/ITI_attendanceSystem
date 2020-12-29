@@ -27,6 +27,9 @@
     font-weight: bold;
     box-sizing: border-box;
 }
+body{
+    padding-bottom:30px ;
+}
 
 .btn {
     border: 1px solid var(--darkred);

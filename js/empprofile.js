@@ -27,7 +27,7 @@ function showEmpData(emp) {
     $('#profileEmail').text(emp.email);
     $('#profileAddress').text(emp.address);
     $('#profileAge').text(emp.age);
-    $('#profileDoE').text(emp.dateofemp);
+    $('#profileDoE').text(readableDate(emp.dateofemp));
     if (emp.subadmin != undefined) {
         $('#profileOptions').append('<li  class="optionlist"><a href="attendance_page.html">Take Attendance</a></li>');
     }
@@ -56,8 +56,8 @@ function showDailyReport(reportRows) {
         rows += `
         <tr>
         <td>${reportRows[i].day}</td>
-        <td>${reportRows[i].time}</td>
-        <td>${reportRows[i].lateTime}</td>
+        <td>${formatAMPM(reportRows[i].time)}</td>
+        <td>${msToTime(reportRows[i].lateTime)}</td>
         </tr>
         `;
     }
