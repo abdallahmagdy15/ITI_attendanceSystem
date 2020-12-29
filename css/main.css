@@ -133,13 +133,14 @@ td , th{
 thead tr {
     background-color: var(--smoke);
 }
-p{
-    margin: .5rem 0;
-}
+
 tbody.reportTBody > tr:hover {
     cursor: pointer;
     background-color: var(--lightsmoke);
 }
 th{
     color: var(--darkred);
+}
+th:first-child , td:first-child{
+    padding-left:1.5rem;
 }

@@ -24,10 +24,13 @@ fetch('../data/employees.json').then((emps) => emps.json())
 
 function showEmpData(emp) {
     $('#empName').text(emp.fname + " " + emp.lname);
+    $('#username').text(emp.username);
     $('#profileEmail').text(emp.email);
     $('#profileAddress').text(emp.address);
     $('#profileAge').text(emp.age);
     $('#profileDoE').text(readableDate(emp.dateofemp));
+    $('#code').text(emp.code);
+
     if (emp.subadmin != undefined) {
         $('#profileOptions').append('<li  class="optionlist"><a href="attendance_page.html">Take Attendance</a></li>');
     }
