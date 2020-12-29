@@ -6,8 +6,8 @@ h2 {
     font-size: .8rem;
     width: auto;
     height: auto;
-    padding: 2px 5px;
-    border-radius: 50%;
+    padding: 2px 8px;
+    border-radius: 8px;
     background-color: var(--smoke);
     color: var(--darkred);
 }

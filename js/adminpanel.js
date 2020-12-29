@@ -129,10 +129,10 @@ function selectSubAdmin(el, i, empsArray) {
             }
         }
         // remove checked from last sub admin
-        $('.selectsubadmin input[checked]').removeAttr('checked');
+        $('.selectsubadmin input[checked]').first().removeAttr('checked');
 
         //check this emp as sub admin
-        $(el).children('input').attr('checked', '');
+        $(el).children('input').first().attr('checked', '');
 
         // add subadmin property to selected emp
         empsArray[i].subadmin = "";
@@ -149,9 +149,9 @@ function selectSubAdmin(el, i, empsArray) {
 
 function showFullReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or subadmin or new emp
+    //loop on emps only not admin or new emp
     for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].subadmin == undefined && emps[i].new == undefined) {
+        if (emps[i].admin == undefined && emps[i].new == undefined) {
             let masterReport = {};
             let detailReport = [];
             let detailColHeads = "";
@@ -218,9 +218,9 @@ function showFullReport(emps, per = "curryear") {
 
 function showLateReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or subadmin or new emps
+    //loop on emps only not admin or new emps
     for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].subadmin == undefined && emps[i].new == undefined) {
+        if (emps[i].admin == undefined && emps[i].new == undefined) {
             let masterReport = {};
             let detailReport = [];
             let detailColHeads = "";
@@ -283,9 +283,9 @@ function showLateReport(emps, per = "curryear") {
 
 function showAbsenceReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or subadmin or new
+    //loop on emps only not admin or new
     for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].subadmin == undefined && emps[i].new == undefined) {
+        if (emps[i].admin == undefined && emps[i].new == undefined) {
             let masterReport = {};
             let detailReport = [];
             let detailColHeads = "";
