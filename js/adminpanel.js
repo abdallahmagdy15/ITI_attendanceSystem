@@ -179,7 +179,7 @@ function showFullReport(emps, per = "curryear") {
             <tr>
                 <td colspan="4">
                 <div id="fullreport${i}" class="collapse">
-                    <table width="100%">
+                    <table>
                         <thead>
                             ${detailColHeads}
                         </thead>
@@ -198,8 +198,8 @@ function showFullReport(emps, per = "curryear") {
                     rows += `
                             <tr>
                                 <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${detailReport[j][detailReportKeys[1]]}</td>
-                                <td>${detailReport[j][detailReportKeys[3]]}</td>
+                                <td>${formatAMPM( detailReport[j][detailReportKeys[1]])}</td>
+                                <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
                             </tr>`;
             }
             rows += `
@@ -246,7 +246,7 @@ function showLateReport(emps, per = "curryear") {
             <tr>
                 <td colspan="4">
                 <div id="latereport${i}" class="collapse">
-                    <table width="100%">
+                    <table >
                         <thead>
                             ${detailColHeads}
                         </thead>
@@ -263,8 +263,8 @@ function showLateReport(emps, per = "curryear") {
                     rows += `
                             <tr>
                                 <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${detailReport[j][detailReportKeys[1]]}</td>
-                                <td>${detailReport[j][detailReportKeys[3]]}</td>
+                                <td>${formatAMPM( detailReport[j][detailReportKeys[1]])}</td>
+                                <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
                             </tr>`;
             }
             rows += `
@@ -311,7 +311,7 @@ function showAbsenceReport(emps, per = "curryear") {
             <tr>
                 <td colspan="4">
                 <div id="absencereport${i}" class="collapse">
-                    <table width="100%">
+                    <table >
                         <thead>
                             ${detailColHeads}
                         </thead>

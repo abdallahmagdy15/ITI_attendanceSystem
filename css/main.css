@@ -126,3 +126,6 @@ a:hover {
 .modal-title {
     color: var(--darkred);
 }
+td , th{
+    padding: .5rem 1rem;
+}

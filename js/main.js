@@ -41,6 +41,8 @@ function showAlert(title, content, buttons) {
 }
 
 function formatAMPM(date) {
+    if (date == 0)
+        return "__";
     date = new Date(date);
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -154,14 +156,17 @@ function getDaily(emp) {
 function readableDate(date) {
     return (new Date(date)).toDateString();
 }
-function msToTime(duration){
+
+function msToTime(duration) {
+    if (duration == 0)
+        return "__";
     seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-  return hours + " : " + minutes + " : " + seconds;
+    return hours + " : " + minutes + " : " + seconds;
 }
