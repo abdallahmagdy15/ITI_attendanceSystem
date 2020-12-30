@@ -42,7 +42,7 @@ function showMonthlyReport(reportRows) {
     let rows = "";
     for (i in reportRows) {
         rows += `
-        <tr>
+        <tr class="toggleCollapse">
         <td>${reportRows[i].month}</td>
         <td>${(reportRows[i].attend==0)?"__":reportRows[i].attend}</td>
         <td>${(reportRows[i].late==0)?"__":reportRows[i].late}</td>
@@ -57,7 +57,7 @@ function showDailyReport(reportRows) {
     let rows = "";
     for (i in reportRows) {
         rows += `
-        <tr>
+        <tr class="toggleCollapse">
         <td>${reportRows[i].day}</td>
         <td>${formatAMPM(reportRows[i].time)}</td>
         <td>${msToTime(reportRows[i].lateTime)}</td>

@@ -96,7 +96,7 @@ function showAllEmps(emps) {
             if (emps[i].subadmin != undefined) //if sub admin
                 checked = "checked";
             rows += `
-            <tr>
+            <tr class="noCollapse">
             <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${i}">
             <p>${emps[i].fname+" "+emps[i].lname}</p>
             <div id="allemps${i}" class="collapse">
@@ -356,7 +356,7 @@ function showRequests(emps) {
         if (emps[i].new != undefined) { /// if emp has new 
             requests++;
             rows += `
-            <tr>
+            <tr class="noCollapse">
             <td class="toggleCollapse tdToggleCollapse" data-target="#requests${i}">
             <p>${emps[i].fname+" "+emps[i].lname}</p>
             <div id="requests${i}" class="collapse">

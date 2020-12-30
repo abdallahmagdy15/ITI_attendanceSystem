@@ -142,7 +142,7 @@ thead tr {
     background-color: var(--transparentred);
 }
 
-tbody.reportTBody>tr:hover {
+tbody.reportTBody>tr.toggleCollapse:hover {
     cursor: pointer;
     background-color: var(--lightsmoke);
 }

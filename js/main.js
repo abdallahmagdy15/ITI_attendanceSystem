@@ -170,3 +170,33 @@ function msToTime(duration) {
 
     return hours + " : " + minutes + " : " + seconds;
 }
+
+$('#searchform').submit((e) => {
+    e.preventDefault();
+    let query = $(e.target).serializeArray()[0].value;
+    let p = false,val="";
+    // array of emps names tds
+    let namesTds = $('.tab-pane.active > table > tbody > tr.toggleCollapse > td:first-child()');
+    if (namesTds.length == 0) {
+        namesTds = $('.tab-pane.active > table > tbody > tr.noCollapse > td:first-child()');
+        p = true;
+    }
+    //if str empty after hiding some elements then show again
+    if (query == "")
+        for (i in namesTds)
+            $(namesTds[i]).parent().fadeIn();
+    else
+        for (i in namesTds) {
+            if (p) // if td has paragraph
+                val = $(namesTds[i]).children().first().text();
+            else
+                val = $(namesTds[i]).text();
+            // if not match any of query .. then hide ...else then show
+            if ( val.toLowerCase().indexOf(query.toLowerCase()) == -1)
+                $(namesTds[i]).parent().fadeOut();
+            else
+                $(namesTds[i]).parent().fadeIn();
+        }
+    //loop on 
+    return false;
+});
