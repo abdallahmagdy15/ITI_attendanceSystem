@@ -1,22 +1,29 @@
-.profile-reports{
+.profile-reports {
     background-color: #e4e3e4;
     border-radius: 5px;
 }
+
 .empDetails p {
     font-weight: normal;
     font-size: 1.2rem;
 }
+
 #empName {
     font-weight: bold;
 }
-.empDetails > div {
+
+.empDetails>div {
     margin-bottom: 1.2rem;
 }
+
 .empDetails label {
     width: 10rem;
+    font-weight: lighter;
 }
-.empDetails p{
+
+.empDetails p {
     margin-left: 1rem;
-font-size: 1.4rem;
-display: inline;
+    font-size: 1.3rem;
+    display: inline;
+    font-weight: bolder;
 }

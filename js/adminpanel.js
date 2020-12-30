@@ -177,8 +177,7 @@ function showFullReport(emps, per = "curryear") {
             <td>${masterReport.absent}</td>
             </tr>
             <tr>
-                <td colspan="4">
-                <div id="fullreport${i}" class="collapse">
+                <td colspan="4" id="fullreport${i}" class="collapse">
                     <table>
                         <thead>
                             ${detailColHeads}
@@ -205,7 +204,6 @@ function showFullReport(emps, per = "curryear") {
             rows += `
                         </tbody>
                     </table>
-                </div>
                 </td>
             </tr>`;
 
@@ -244,8 +242,7 @@ function showLateReport(emps, per = "curryear") {
             <td>${masterReport.late}</td>
             </tr>
             <tr>
-                <td colspan="4">
-                <div id="latereport${i}" class="collapse">
+                <td colspan="4" id="latereport${i}" class="collapse">
                     <table >
                         <thead>
                             ${detailColHeads}
@@ -270,7 +267,6 @@ function showLateReport(emps, per = "curryear") {
             rows += `
                         </tbody>
                     </table>
-                </div>
                 </td>
             </tr>`;
 
@@ -309,8 +305,8 @@ function showAbsenceReport(emps, per = "curryear") {
             <td>${masterReport.absent}</td>
             </tr>
             <tr>
-                <td colspan="4">
-                <div id="absencereport${i}" class="collapse">
+                <td colspan="4" id="absencereport${i}" class="collapse">
+                <div>
                     <table >
                         <thead>
                             ${detailColHeads}
@@ -337,7 +333,6 @@ function showAbsenceReport(emps, per = "curryear") {
             rows += `
                         </tbody>
                     </table>
-                </div>
                 </td>
             </tr>`;
 

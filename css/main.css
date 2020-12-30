@@ -133,16 +133,18 @@ a:hover {
     color: var(--darkred);
 }
 
-td,
-th {
-    padding: .5rem 1rem;
+td{
+    padding: 1rem 1.5rem !important;
+}
+th{
+    padding: .7rem 1.5rem !important;
 }
 
 thead tr {
     background-color: var(--transparentred);
 }
 
-tbody.reportTBody>tr.toggleCollapse:hover {
+tbody.reportTBody > tr:hover , tbody > tr.toggleCollapse:hover {
     cursor: pointer;
     background-color: var(--lightsmoke);
 }
@@ -151,10 +153,6 @@ th {
     color: var(--darkred);
 }
 
-th:first-child,
-td:first-child {
-    padding-left: 1.5rem;
-}
 
 thead tr{
     box-shadow: 0px 1px 3px var(--lightred);

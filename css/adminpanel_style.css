@@ -18,4 +18,10 @@ td input{
 p{
     margin: .5rem 0;
 }
+.card-body span{
+    font-size: 1.2rem;
+}
 
+.card-body label{
+    font-weight: lighter;
+}
