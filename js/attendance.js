@@ -30,7 +30,7 @@ function confirmAttendance(record, emps) {
     let empMonthObj;
     try {
         empMonthObj = emps.filter(e => e.code === record.code)[0]
-            .attendance.filter(a => a.month === record.time.getMonth())[0];
+            .attendance.filter(a => a.month === record.time.getMonth()+1)[0];
     } catch {
         showAlert('Code is not correct','Please enter the correct one!',1);
         return;

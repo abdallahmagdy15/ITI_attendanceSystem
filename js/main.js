@@ -99,9 +99,9 @@ function getMonthly(emp) {
             atten += (day.attended) ? 1 : 0;
             late += (day.lateTime > 0) ? 1 : 0;
         }
-        if (now.getMonth() > months[i].month)
+        if ((now.getMonth() + 1) > months[i].month)
             absent = 30 - atten;
-        else if (now.getMonth() == months[i].month)
+        else if ((now.getMonth() + 1) == months[i].month)
             absent = now.getDate() - atten;
         else
             break;
@@ -109,7 +109,7 @@ function getMonthly(emp) {
             attend: atten,
             late: late,
             absent: absent,
-            month: months[i].month,
+            month: months[i].month
         });
         atten = 0, late = 0, absent = 0;
     }
@@ -118,7 +118,7 @@ function getMonthly(emp) {
 
 function getDaily(emp) {
 
-    let currMonth = emp.attendance.filter(m => m.month == (new Date()).getMonth())[0];
+    let currMonth = emp.attendance.filter(m => m.month == ((new Date()).getMonth() + 1))[0];
     let dailyReport = [];
     let i = 0;
     if (currMonth.days.length == 0) ///check days array for cuur month is empty or not
@@ -174,7 +174,8 @@ function msToTime(duration) {
 $('#searchform').submit((e) => {
     e.preventDefault();
     let query = $(e.target).serializeArray()[0].value;
-    let p = false,val="";
+    let p = false,
+        val = "";
     // array of emps names tds
     let namesTds = $('.tab-pane.active > table > tbody > tr.toggleCollapse > td:first-child()');
     if (namesTds.length == 0) {
@@ -192,7 +193,7 @@ $('#searchform').submit((e) => {
             else
                 val = $(namesTds[i]).text();
             // if not match any of query .. then hide ...else then show
-            if ( val.toLowerCase().indexOf(query.toLowerCase()) == -1)
+            if (val.toLowerCase().indexOf(query.toLowerCase()) == -1)
                 $(namesTds[i]).parent().fadeOut();
             else
                 $(namesTds[i]).parent().fadeIn();
