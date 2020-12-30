@@ -44,9 +44,9 @@ function showMonthlyReport(reportRows) {
         rows += `
         <tr>
         <td>${reportRows[i].month}</td>
-        <td>${reportRows[i].attend}</td>
-        <td>${reportRows[i].late}</td>
-        <td>${reportRows[i].absent}</td>
+        <td>${(reportRows[i].attend==0)?"__":reportRows[i].attend}</td>
+        <td>${(reportRows[i].late==0)?"__":reportRows[i].late}</td>
+        <td>${(reportRows[i].absent==0)?"__":reportRows[i].absent}</td>
         </tr>
         `;
     }

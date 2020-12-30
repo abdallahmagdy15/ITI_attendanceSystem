@@ -5,6 +5,7 @@
     --greyred: #BF7379;
     --smoke: rgb(216 216 216);
     --lightsmoke: rgb(228 228 228);
+    --transparentred: #bf2a3615;
 }
 
 @font-face {
@@ -28,8 +29,9 @@
     font-weight: bold;
     box-sizing: border-box;
 }
-body{
-    padding-bottom:30px ;
+
+body {
+    padding-bottom: 30px;
 }
 
 .btn {
@@ -37,9 +39,10 @@ body{
 }
 
 .filled {
-    background-color:var(--lightred);
+    background-color: var(--lightred);
     color: white;
 }
+
 
 .form-control {
     border: 1px solid #b1888b98;
@@ -69,7 +72,7 @@ body{
 .nav-tabs .nav-link.active {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color:var(--lightred);
+    background-color: var(--lightred);
     color: white;
 }
 
@@ -96,7 +99,7 @@ a {
 }
 
 a:hover {
-    color:var(--lightred);
+    color: var(--lightred);
 }
 
 .optionsBtn,
@@ -121,26 +124,38 @@ a:hover {
     background-color: var(--smoke);
     color: var(--darkred);
 }
+
 .dropdown-menu {
-    box-shadow:  0px 0px 5px 2px var(--smoke);
+    box-shadow: 0px 0px 5px 2px var(--smoke);
 }
+
 .modal-title {
     color: var(--darkred);
 }
-td , th{
+
+td,
+th {
     padding: .5rem 1rem;
 }
+
 thead tr {
-    background-color: var(--smoke);
+    background-color: var(--transparentred);
 }
 
-tbody.reportTBody > tr:hover {
+tbody.reportTBody>tr:hover {
     cursor: pointer;
     background-color: var(--lightsmoke);
 }
-th{
+
+th {
     color: var(--darkred);
 }
-th:first-child , td:first-child{
-    padding-left:1.5rem;
+
+th:first-child,
+td:first-child {
+    padding-left: 1.5rem;
+}
+
+thead tr{
+    box-shadow: 0px 1px 3px var(--lightred);
 }

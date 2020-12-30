@@ -47,8 +47,13 @@
                         <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests" role="tab">
                             Registration Requests <span id="reqNotifis"></span></a>
                     </li>
+                    <li class="nav-item" style="margin-left: auto;">
+                        <form  style="width:auto;">
+                            <input class="form-control mr-sm-0" style="width:auto;display:inline-block;vertical-align: middle;" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </li>
                 </ul>
-
                 <div class="tab-content">
 
                     <div class="tab-pane active" id="allemps" role="tabpanel" aria-labelledby="allemps-tab">
@@ -65,10 +70,11 @@
                         </table>
                     </div>
                     <div class="tab-pane" id="fullreport" role="tabpanel" aria-labelledby="fullreport-tab">
-                        <div>
+                        <div class="switchdiv">
                             <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
                                 data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
-                                data-onstyle="success" data-offstyle="warning" id="fullreportSwitch" class="displayperSwitch">
+                                data-onstyle="primary" data-offstyle="warning" id="fullreportSwitch"
+                                class="displayperSwitch">
                         </div>
                         <table class="table">
                             <thead>
@@ -85,10 +91,11 @@
                         </table>
                     </div>
                     <div class="tab-pane" id="latereport" role="tabpanel" aria-labelledby="latereport-tab">
-                        <div>
+                        <div class="switchdiv">
                             <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
                                 data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
-                                data-onstyle="success" data-offstyle="warning" id="latereportSwitch" class="displayperSwitch">
+                                data-onstyle="primary" data-offstyle="warning" id="latereportSwitch"
+                                class="displayperSwitch">
                         </div>
                         <table class="table">
                             <thead>
@@ -103,10 +110,11 @@
                         </table>
                     </div>
                     <div class="tab-pane" id="absencereport" role="tabpanel" aria-labelledby="absencereport-tab">
-                        <div>
+                        <div class="switchdiv">
                             <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
                                 data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
-                                data-onstyle="success" data-offstyle="warning" id="absentreportSwitch" class="displayperSwitch">
+                                data-onstyle="primary" data-offstyle="warning" id="absentreportSwitch"
+                                class="displayperSwitch">
                         </div>
                         <table class="table">
                             <thead>
@@ -115,7 +123,7 @@
                                     <th>Absent Times</th>
                                 </tr>
                             </thead>
-                            <tbody  class="reportTBody" id="absencereportRows">
+                            <tbody class="reportTBody" id="absencereportRows">
 
                             </tbody>
                         </table>
@@ -129,7 +137,7 @@
                                     <th>Request</th>
                                 </tr>
                             </thead>
-                            <tbody  class="reportTBody" id="requestsRows">
+                            <tbody class="reportTBody" id="requestsRows">
 
                             </tbody>
                         </table>
