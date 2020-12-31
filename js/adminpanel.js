@@ -386,6 +386,11 @@ function acceptRequest(emps, i) {
     downloadLink.href = window.webkitURL.createObjectURL(_blob);
     downloadLink.setAttribute("download", "employees.json");
     downloadLink.click();
+    downloadLink.href = 'mailto:' + emps[i].email +
+    "?subject=New Employee Registration&body=Registration request has been approved by the admin!\nPlease follow the link below to login to your account\n"+"http://localhost:5500/login_page.html";
+   downloadLink.setAttribute("download", "false");
+   downloadLink.click();
+   showAlert('Registration Status', 'Registration confirmation email has been sent to the new employee!', 1);
 }
 
 function rejectRequest(emps, i) {
@@ -398,6 +403,11 @@ function rejectRequest(emps, i) {
     downloadLink.href = window.webkitURL.createObjectURL(_blob);
     downloadLink.setAttribute("download", "employees.json");
     downloadLink.click();
+    downloadLink.href = 'mailto:' + emps[i].email +
+    "?subject=New Employee Registration&body=Sorry to tell you that your registration request has been rejected by the admin!\nPlease follow the link below for more information\n"+"http://localhost:5500";
+   downloadLink.setAttribute("download", "false");
+   downloadLink.click();
+   showAlert('Registration Status', 'Registration confirmation email has been sent to the new employee!', 1);
 }
 
 function makecode(length) {

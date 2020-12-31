@@ -71,7 +71,7 @@ function checkUsernameAvailibility(uname, emps) {
   return true;
 }
 
-function registerEmpData(emp, emps, adminMail) {
+function registerEmpData(emp, emps) {
   emps.push(emp);
   //download data
   var _blob = new Blob([JSON.stringify(emps)], {
@@ -82,7 +82,10 @@ function registerEmpData(emp, emps, adminMail) {
   downloadLink.href = window.webkitURL.createObjectURL(_blob);
   downloadLink.setAttribute("download", "employees.json");
   downloadLink.click();
-  downloadLink.href = 'mailto:' + adminMail;
+  downloadLink.href = 'mailto:' + emps[0].email +
+   "?subject=New Employee Registration&body=A new Employee called : " +
+    '"' + emp.fname + " " + emp.lname + '"' +
+     " has registested and he is waiting for your confirmation";
   downloadLink.setAttribute("download", "false");
   downloadLink.click();
   showAlert('Registration Status', 'Registration request has been sent to the admin for  the approvement!', 1);
