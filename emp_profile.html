@@ -27,7 +27,8 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <ul class="dropdown-menu" id="profileOptions" aria-labelledby="dropdownMenuButton">
-                            <li  class="optionlist" ><a onclick="logout()" href="login_page.html">Logout</a></li>
+                            <li class="optionlist"><a onclick="logout()" href="login_page.html">Logout</a></li>
+                            <li class="optionlist"><a href="#" onclick="generatePDF()">Download As PDF</a></li>
                         </ul>
                     </div>
 
@@ -59,10 +60,6 @@
                         <p id="code"></p>
                     </div>
                 </div>
-                <hr>
-                <div class="attendchart">
-                    <canvas id="chart" width="400" height="400"></canvas>
-                </div>
             </div>
             <div class="col-12 col-md-7 profile-reports pt-3">
                 <ul class="nav nav-tabs" id="profileReportsTabs" role="tablist">
@@ -74,9 +71,15 @@
                         <a class="nav-link" id="daily-tab" data-toggle="tab" href="#dailyReport" role="tab"
                             aria-controls="daily" aria-selected="false">Daily Report</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="attendchart-tab" data-toggle="tab" href="#attendChart" role="tab"
+                            aria-controls="chart" aria-selected="false">Attendance Chart</a>
+                    </li>
                     <li class="nav-item" style="margin-left: auto;">
-                        <form id="searchform"  style="width:auto;">
-                            <input name="query" class="form-control mr-sm-0" style="width:auto;display:inline-block;vertical-align: middle;" type="search" placeholder="Search" aria-label="Search">
+                        <form id="searchform" style="width:auto;">
+                            <input name="query" class="form-control mr-sm-0"
+                                style="width:auto;display:inline-block;vertical-align: middle;" type="search"
+                                placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </li>
@@ -111,6 +114,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="tab-pane" id="attendChart" role="tabpanel" aria-labelledby="attendchart-tab">
+                        <div class="attendchart">
+                            <canvas id="chart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,6 +129,7 @@
     <script src="js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="fontawesome/all.min.js"></script>
+    <script src="js/html2pdf.bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/empprofile.js"></script>
 </body>

@@ -201,3 +201,7 @@ $('#searchform').submit((e) => {
     //loop on 
     return false;
 });
+
+function generatePDF() {
+    html2pdf(document.querySelector('.container-fluid'));
+}

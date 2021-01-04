@@ -8,6 +8,7 @@
     <!-- stylesheet libs-->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap4-toggle.min.css" />
+    <link rel="stylesheet" href="fontawesome/all.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/adminpanel_style.css" />
 </head>
@@ -18,9 +19,21 @@
             <a href="index.html"><img src="img/header.png" class="col-12 col-sm-8 offset-sm-2" alt=""></a>
         </header>
         <div class="row p-3">
-            <h2 class="pull-left col-6">Admin Panel</h2>
-            <div class="pull-right col-6">
-                <a href="login_page.html" style="float: right;" onclick="logout()" class="btn logout">Logout</a>
+            <h2 class="col">Admin Panel</h2>
+
+            <div class="col">
+                <div style="float:right">
+                    <div class="dropdown d-inline" style="margin-right: 1rem;">
+                        <button class="optionsBtn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" id="adminOptions" aria-labelledby="dropdownMenuButton">
+                            <li class="optionlist"><a href="#" onclick="generatePDF()">Download As PDF</a></li>
+                        </ul>
+                    </div>
+                    <a href="login_page.html" onclick="logout()" class="btn logout">Logout</a>
+                </div>
             </div>
         </div>
         <div class="row p-3">
@@ -49,7 +62,9 @@
                     </li>
                     <li class="nav-item" style="margin-left: auto;">
                         <form id="searchform" style="width:auto;">
-                            <input name="query" class="form-control mr-sm-0" style="width:auto;display:inline-block;vertical-align: middle;" type="search" placeholder="Search" aria-label="Search">
+                            <input name="query" class="form-control mr-sm-0"
+                                style="width:auto;display:inline-block;vertical-align: middle;" type="search"
+                                placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </li>
@@ -169,6 +184,8 @@
     <script src="js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/bootstrap4-toggle.min.js"></script>
+    <script src="fontawesome/all.min.js"></script>
+    <script src="js/html2pdf.bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/adminpanel.js"></script>
 </body>
