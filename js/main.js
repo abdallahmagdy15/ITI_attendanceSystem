@@ -203,5 +203,5 @@ $('#searchform').submit((e) => {
 });
 
 function generatePDF() {
-    html2pdf(document.querySelector('.container-fluid'));
+    html2pdf(document.querySelector('.reports'));
 }
