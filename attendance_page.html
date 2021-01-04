@@ -7,6 +7,7 @@
     <title>Attendance</title>
     <!-- stylesheet libs-->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="jqui/jquery-ui.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/attendance_style.css" />
 </head>
@@ -18,11 +19,12 @@
         </header>
         <div class="row">
             <h1 class="mt-2 text-center">Attendance Form</h1>
-            <form id="attendanceForm" class="col-12 col-sm-8 offset-sm-2" method="POST">
+            <form id="attendanceForm" autocomplete="off" class="col-12 col-sm-8 offset-sm-2" method="POST">
                 <div class="form-group">
                     <label for="code">Employee Code:</label>
-                    <input id="code" name="code" class="form-control" type="text"
-                        placeholder="Enter employee code" required>
+                    <input id="code" name="code" class="form-control mt-1" type="search" placeholder="Enter employee code">
+                    <ul id="selectedEmps" class="list-group mt-2">
+                    </ul>
                 </div>
                 <button type="submit" class="btn filled">Confirm Attendance</button>
                 <a href="/emp_profile.html" class="btn registerbtn">Profile</a>
@@ -52,6 +54,7 @@
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="jqui/jquery-ui.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/attendance.js"></script>
 </body>

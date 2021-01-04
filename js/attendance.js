@@ -8,63 +8,59 @@ fetch('../data/employees.json').then((emps) => emps.json())
                 location.replace('../../index.html');
             });
         } else {
+            attendAutoComplete(emps);
             formSubmitHandler(emps);
         }
     });
 
 function formSubmitHandler(emps) {
     $('#attendanceForm').submit(function (e) {
-        let record = {};
-        //get form data as object
-        $.each($(this).serializeArray(), function (i, kv) {
-            record[kv.name] = kv.value;
-        });
-        record.time = new Date();
-        confirmAttendance(record, emps);
+        confirmAttendance(emps);
         return false;
     });
 }
 
-function confirmAttendance(record, emps) {
-    //get emp obj by code
-    let empMonthObj;
-    try {
-        empMonthObj = emps.filter(e => e.code === record.code)[0]
-            .attendance.filter(a => a.month === record.time.getMonth()+1)[0];
-    } catch {
-        showAlert('Code is not correct','Please enter the correct one!',1);
-        return;
-    }
-    let time = (new Date(record.time)).getTime();
-    let ruleTime = (new Date(record.time)).setHours(9, 0, 0);
-    empMonthObj.days.push({
-        day: record.time.getDate(),
-        attended: "true",
-        time: record.time,
-        lateTime: calcLatency(time, ruleTime)
-    });
-
-    //download data
-    var _blob = new Blob([JSON.stringify(emps)], {
-        type: "application/json"
-    });
-    let downloadLink = document.createElement('a');
-    downloadLink.href = window.webkitURL.createObjectURL(_blob);
-    downloadLink.setAttribute("download", "employees.json");
-    downloadLink.click();
-
-    //get emps data to load emp name
-    fetch('../data/employees.json').then((emps) => emps.json())
-        .then(emps => {
-            let emp = getEmp(emps, record.code);
-            if (emp != false)
-                showAlert('Attendance Confirmed',
-                    `<p><label>Name: </label> ${emp.fname + " " + emp.lname}</p>
-        <p><label>Time: </label> ${formatAMPM(record.time)}</p>`, 1);
-        })
-        .catch(emps => {
-            console.log("failed to load employees json file");
+function confirmAttendance(emps) {
+    for (i in selectedEmps) {
+        //get emp obj by code
+        let empMonthObj;
+        try {
+            empMonthObj = emps.filter(e => e.code === selectedEmps[i].code)[0]
+                .attendance.filter(a => a.month === selectedEmps[i].time.getMonth() + 1)[0];
+        } catch {
+            showAlert(selectedEmps[i].name + ', Code is not correct', 'Please enter the correct one!', 1);
+            selectedEmps[i].notFound = "";
+        }
+        let time = (new Date(selectedEmps[i].time)).getTime();
+        let ruleTime = (new Date(selectedEmps[i].time)).setHours(9, 0, 0);
+        empMonthObj.days.push({
+            day: selectedEmps[i].time.getDate(),
+            attended: "true",
+            time: selectedEmps[i].time,
+            lateTime: calcLatency(time, ruleTime)
         });
+    }
+
+    let confirmMsg = '';
+    for (i in selectedEmps) {
+        if (selectedEmps[i].notFound != undefined)
+            continue;
+        confirmMsg += `<p><label>Name: </label> ${selectedEmps[i].name}</p>
+        <p><label>Time: </label> ${formatAMPM(selectedEmps[i].time)}</p><hr>`;
+    }
+
+    if (confirmMsg != '') {
+        //download updated data
+        var _blob = new Blob([JSON.stringify(emps)], {
+            type: "application/json"
+        });
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.webkitURL.createObjectURL(_blob);
+        downloadLink.setAttribute("download", "employees.json");
+        downloadLink.click();
+
+        showAlert('Attendance Confirmed', confirmMsg, 1);
+    }
 }
 
 function calcLatency(time, ruleTime) {
@@ -72,4 +68,35 @@ function calcLatency(time, ruleTime) {
         return Math.abs(time - ruleTime)
     else // not late
         return 0;
+}
+
+let selectedEmps = [];
+function attendAutoComplete(emps) {
+    let empsCode = emps.map(emp => {
+        return {
+            label: emp.fname + " " + emp.lname,
+            value: emp.code
+        }
+    });
+
+    $("#code").autocomplete({
+        source: empsCode,
+        select: function (event, ui) {
+            selectedEmps.push({
+                code: ui.item.value,
+                time: new Date(),
+                name: ui.item.label
+            });
+            $('#selectedEmps').append(`<li class="list-group-item selected-emp" code="${ui.item.value}" >${ui.item.label}
+            <span class="delItemBtn">X</span></li>`);
+        }
+    })
+
+    $('#selectedEmps').on('click','li.selected-emp', function (e) {
+        e.preventDefault();
+        let code = $(this).attr('code')
+        selectedEmps = selectedEmps.filter(emp => emp.code != code);
+        $(this).remove()
+        $("#code").val("")
+    })
 }

@@ -1,0 +1,9 @@
+span.delItemBtn {
+    float: right;
+    color: var(--darkred);
+}
+
+.list-group-item:hover {
+    background-color: var(--lightsmoke);
+    cursor: pointer;
+}
