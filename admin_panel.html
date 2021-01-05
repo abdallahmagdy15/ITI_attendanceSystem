@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap4-toggle.min.css" />
     <link rel="stylesheet" href="fontawesome/all.min.css" />
+    <link rel="stylesheet" href="css/daterangepicker.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/adminpanel_style.css" />
 </head>
@@ -86,10 +87,12 @@
                     </div>
                     <div class="tab-pane" id="fullreport" role="tabpanel" aria-labelledby="fullreport-tab">
                         <div class="switchdiv">
-                            <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
-                                data-onstyle="primary" data-offstyle="warning" id="fullreportSwitch"
-                                class="displayperSwitch">
+                            <label class="m-3">Display per Current </label>
+                            <input type="checkbox" data-width="130" data-height="40" checked data-toggle="toggle"
+                                data-on="Year" data-off="Month" data-onstyle="primary" data-offstyle="warning"
+                                id="fullreportSwitch" class="displayperSwitch">
+                            <input class="daterangepicker-field form-control d-inline" placeholder="Pick Date Range"
+                                style="width: auto; margin-left: 2rem;"></input>
                         </div>
                         <table class="table">
                             <thead>
@@ -107,10 +110,12 @@
                     </div>
                     <div class="tab-pane" id="latereport" role="tabpanel" aria-labelledby="latereport-tab">
                         <div class="switchdiv">
-                            <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
-                                data-onstyle="primary" data-offstyle="warning" id="latereportSwitch"
-                                class="displayperSwitch">
+                            <label class="m-3">Display per Current </label>
+                            <input type="checkbox" data-width="130" data-height="40" checked data-toggle="toggle"
+                                data-on="Year" data-off="Month" data-onstyle="primary" data-offstyle="warning"
+                                id="latereportSwitch" class="displayperSwitch">
+                            <input class="daterangepicker-field form-control d-inline" placeholder="Pick Date Range"
+                                style="width: auto; margin-left: 2rem;"></input>
                         </div>
                         <table class="table">
                             <thead>
@@ -126,11 +131,14 @@
                     </div>
                     <div class="tab-pane" id="absencereport" role="tabpanel" aria-labelledby="absencereport-tab">
                         <div class="switchdiv">
-                            <label class="m-3">Display per Current </label><input type="checkbox" data-width="130"
-                                data-height="40" checked data-toggle="toggle" data-on="Year" data-off="Month"
-                                data-onstyle="primary" data-offstyle="warning" id="absentreportSwitch"
-                                class="displayperSwitch">
+                            <label class="m-3">Display per Current </label>
+                            <input type="checkbox" data-width="130" data-height="40" checked data-toggle="toggle"
+                                data-on="Year" data-off="Month" data-onstyle="primary" data-offstyle="warning"
+                                id="absentreportSwitch" class="displayperSwitch">
+                            <input class="daterangepicker-field form-control d-inline" placeholder="Pick Date Range"
+                                style="width: auto; margin-left: 2rem;"></input>
                         </div>
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -182,6 +190,9 @@
     <!--js libs-->
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/popper.min.js"></script>
+    <script src="js/knockout-3.5.1.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/bootstrap4-toggle.min.js"></script>
     <script src="fontawesome/all.min.js"></script>

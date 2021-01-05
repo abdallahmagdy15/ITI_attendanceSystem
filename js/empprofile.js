@@ -100,9 +100,9 @@ function showMonthlyReport(reportRows) {
         rows += `
         <tr class="toggleCollapse">
         <td>${reportRows[i].month}</td>
-        <td>${(reportRows[i].attend==0)?"__":reportRows[i].attend}</td>
-        <td>${(reportRows[i].late==0)?"__":reportRows[i].late}</td>
-        <td>${(reportRows[i].absent==0)?"__":reportRows[i].absent}</td>
+        <td>${(reportRows[i].attend == 0) ? "__" : reportRows[i].attend}</td>
+        <td>${(reportRows[i].late == 0) ? "__" : reportRows[i].late}</td>
+        <td>${(reportRows[i].absent == 0) ? "__" : reportRows[i].absent}</td>
         </tr>
         `;
     }
@@ -122,3 +122,11 @@ function showDailyReport(reportRows) {
     }
     $('#dailyReportRows').html(rows);
 }
+
+$(".daterangepicker-field").daterangepicker({
+    forceUpdate: true,
+    callback: function (startDate, endDate, period) {
+        var title = startDate.format('L') + ' – ' + endDate.format('L');
+        $(this).val(title)
+    }
+});
