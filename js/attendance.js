@@ -33,12 +33,15 @@ function confirmAttendance(emps) {
         }
         let time = (new Date(selectedEmps[i].time)).getTime();
         let ruleTime = (new Date(selectedEmps[i].time)).setHours(9, 0, 0);
+        //update month obj
         empMonthObj.days.push({
             day: selectedEmps[i].time.getDate(),
-            attended: "true",
             time: selectedEmps[i].time,
             lateTime: calcLatency(time, ruleTime)
         });
+        empMonthObj.attend++;
+        if (lateTime != 0)
+            empMonthObj.late++;
     }
 
     let confirmMsg = '';
@@ -92,7 +95,7 @@ function attendAutoComplete(emps) {
         }
     })
 
-    $('#selectedEmps').on('click','li.selected-emp', function (e) {
+    $('#selectedEmps').on('click', 'li.selected-emp', function (e) {
         e.preventDefault();
         let code = $(this).attr('code')
         selectedEmps = selectedEmps.filter(emp => emp.code != code);

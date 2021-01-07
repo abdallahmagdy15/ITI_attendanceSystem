@@ -43,6 +43,9 @@ function onSubmitEmp(form) {
   for (var i = 1; i < 13; i++)
     attendance.push({
       month: i,
+      attend:0,
+      late:0,
+      absent:0,
       days: []
     });
   emp.attendance = attendance;

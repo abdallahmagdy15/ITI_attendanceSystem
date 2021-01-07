@@ -54,104 +54,101 @@ function formatAMPM(date) {
     return strTime;
 }
 
+function getMonthly(months, start = 1, end = 12) {
+    return months.filter(m => m.month >= start && m.month <= end).forEach((m) {
+        let curr = (new Date()).getMonth() + 1
+        if (curr == m.month) // its the current month
+            m.absent = (new Date()).getDate() - m.attend
+        else if (m.month < curr) // if prev months
+            m.absent = 30 - m.attend
+        else // if coming months
+            m.absent = 0
+    });
 
-function getCurrYearReport(monthlyReport) {
-    let currYearReport = {
-        attended: 0,
-        late: 0,
-        absent: 0
-    };
-    for (i in monthlyReport) {
-        currYearReport.attended += monthlyReport[i].attend;
-        currYearReport.late += monthlyReport[i].late;
-        currYearReport.absent += monthlyReport[i].absent;
-    }
-    return currYearReport;
+    // //___________________________________
+    // let monthlyReport = [];
+    // let now = new Date();
+    // var atten = 0,
+    //     late = 0,
+    //     absent = 0;
+    // //get months according to range
+    // months = months.filter(m => m.month >= start && m.month <= end)
+
+    // //___________________
+    // let months = emp.attendance;
+    // let monthlyReport = [];
+    // let now = new Date();
+    // var atten = 0,
+    //     late = 0,
+    //     absent = 0;
+
+    // for (i in months) {
+    //     for (j in months[i].days) {
+    //         day = months[i].days[j];
+    //         atten += (day.attended) ? 1 : 0;
+    //         late += (day.lateTime > 0) ? 1 : 0;
+    //     }
+    //     if ((now.getMonth() + 1) > months[i].month)
+    //         absent = 30 - atten;
+    //     else if ((now.getMonth() + 1) == months[i].month)
+    //         absent = now.getDate() - atten;
+    //     else
+    //         break;
+    //     monthlyReport.push({
+    //         attend: atten,
+    //         late: late,
+    //         absent: absent,
+    //         month: months[i].month
+    //     });
+    //     atten = 0, late = 0, absent = 0;
+    // }
+    // return monthlyReport;
+}
+//get daily attendance whatever attended or absent
+function getDaily(months, month, start = 1, end = 30) {
+
+    return months.filter(m => m.month == month)[0].days.filter(d => d.day >= start && d.day <= end)
+
+    // //______________________
+    // //get month obj from attendance
+    // month = months.filter(m => m.month == month)[0];
+    // let dailyReport = [];
+    // let i = 0;
+    // ///check days array for month is empty or not * means he absent in the whole month
+    // if (month.days.length == 0)
+    //     // push empty days 
+    //     for (var j = 1; j <= (new Date()).getDate(); j++) {
+    //         dailyReport.push({
+    //             day: j,
+    //             time: 0,
+    //             late: 0,
+    //             lateTime: 0
+    //         });
+    //     }
+    // else
+    //     for (var j = start; j <= end; j++) {
+    //         dayObj = month.days[i];
+    //         if (dayObj.day == j) {
+    //             dailyReport.push({
+    //                 day: j,
+    //                 time: dayObj.time,
+    //                 late: (dayObj.lateTime == 0) ? 1 : 0,
+    //                 lateTime: dayObj.lateTime
+    //             });
+    //             /// stop looping for days array
+    //             if (i < month.days.length - 1)
+    //                 i++;
+    //         } else
+    //             dailyReport.push({
+    //                 day: j,
+    //                 time: 0,
+    //                 late: 0,
+    //                 lateTime: 0
+    //             });
+    //     }
+    // return dailyReport;
 }
 
-function getCurrMonthReport(dailyReport) {
-    let currMonthReport = {
-        attended: 0,
-        late: 0,
-        absent: 0
-    };
-    for (i in dailyReport) {
-        if (dailyReport[i].time == 0)
-            currMonthReport.absent++;
-        else
-            currMonthReport.attended++;
-        currMonthReport.late += dailyReport[i].late;
-    }
-    return currMonthReport;
-}
-
-function getMonthly(emp) {
-    let months = emp.attendance;
-    let monthlyReport = [];
-    let now = new Date();
-    var atten = 0,
-        late = 0,
-        absent = 0;
-
-    for (i in months) {
-        for (j in months[i].days) {
-            day = months[i].days[j];
-            atten += (day.attended) ? 1 : 0;
-            late += (day.lateTime > 0) ? 1 : 0;
-        }
-        if ((now.getMonth() + 1) > months[i].month)
-            absent = 30 - atten;
-        else if ((now.getMonth() + 1) == months[i].month)
-            absent = now.getDate() - atten;
-        else
-            break;
-        monthlyReport.push({
-            attend: atten,
-            late: late,
-            absent: absent,
-            month: months[i].month
-        });
-        atten = 0, late = 0, absent = 0;
-    }
-    return monthlyReport;
-}
-
-function getDaily(emp) {
-
-    let currMonth = emp.attendance.filter(m => m.month == ((new Date()).getMonth() + 1))[0];
-    let dailyReport = [];
-    let i = 0;
-    if (currMonth.days.length == 0) ///check days array for cuur month is empty or not
-        for (var j = 1; j <= (new Date()).getDate(); j++) { // push empty days 
-            dailyReport.push({
-                day: j,
-                time: 0,
-                late: 0,
-                lateTime: 0
-            });
-        }
-    else
-        for (var j = 1; j <= (new Date()).getDate(); j++) {
-            dayObj = currMonth.days[i];
-            if (dayObj.day == j) {
-                dailyReport.push({
-                    day: j,
-                    time: dayObj.time,
-                    late: (dayObj.lateTime == 0) ? 1 : 0,
-                    lateTime: dayObj.lateTime
-                });
-                if (i < currMonth.days.length - 1) /// stop looping for days array
-                    i++;
-            } else
-                dailyReport.push({
-                    day: j,
-                    time: 0,
-                    late: 0,
-                    lateTime: 0
-                });
-        }
-    return dailyReport;
-}
 
 function readableDate(date) {
     return (new Date(date)).toDateString();
@@ -173,9 +170,15 @@ function msToTime(duration) {
 
 $('#searchform').submit((e) => {
     e.preventDefault();
-    let query = $(e.target).serializeArray()[0].value;
+    let range = $(e.target).serializeArray()[0].value;
+    let query = $(e.target).serializeArray()[1].value;
     let p = false,
         val = "";
+
+    // show specific range
+
+
+
     // array of emps names tds
     let namesTds = $('.tab-pane.active > table > tbody > tr.toggleCollapse > td:first-child()');
     if (namesTds.length == 0) {
@@ -198,10 +201,40 @@ $('#searchform').submit((e) => {
             else
                 $(namesTds[i]).parent().fadeIn();
         }
-    //loop on 
+
     return false;
 });
 
 function generatePDF() {
     html2pdf(document.querySelector('.reports'));
 }
+
+// function getCurrYearReport(monthlyReport) {
+//     let currYearReport = {
+//         attended: 0,
+//         late: 0,
+//         absent: 0
+//     };
+//     for (i in monthlyReport) {
+//         currYearReport.attended += monthlyReport[i].attend;
+//         currYearReport.late += monthlyReport[i].late;
+//         currYearReport.absent += monthlyReport[i].absent;
+//     }
+//     return currYearReport;
+// }
+
+// function getCurrMonthReport(dailyReport) {
+//     let currMonthReport = {
+//         attended: 0,
+//         late: 0,
+//         absent: 0
+//     };
+//     for (i in dailyReport) {
+//         if (dailyReport[i].time == 0)
+//             currMonthReport.absent++;
+//         else
+//             currMonthReport.attended++;
+//         currMonthReport.late += dailyReport[i].late;
+//     }
+//     return currMonthReport;
+// }

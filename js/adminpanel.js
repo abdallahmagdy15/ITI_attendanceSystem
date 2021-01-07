@@ -98,7 +98,7 @@ function showAllEmps(emps) {
             rows += `
             <tr class="noCollapse">
             <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${i}">
-            <p>${emps[i].fname+" "+emps[i].lname}</p>
+            <p>${emps[i].fname + " " + emps[i].lname}</p>
             <div id="allemps${i}" class="collapse">
                 <div class="card-body">
                     <label>Username:  </label><span> ${emps[i].username}</span><br>
@@ -170,7 +170,7 @@ function showFullReport(emps, per = "curryear") {
             rows += `
             <tr class="toggleCollapse" data-target="#fullreport${i}">
             <td>
-                ${emps[i].fname+" "+emps[i].lname}
+                ${emps[i].fname + " " + emps[i].lname}
             </td>
             <td>${masterReport.attended}</td>
             <td>${masterReport.late}</td>
@@ -197,7 +197,7 @@ function showFullReport(emps, per = "curryear") {
                     rows += `
                             <tr>
                                 <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${formatAMPM( detailReport[j][detailReportKeys[1]])}</td>
+                                <td>${formatAMPM(detailReport[j][detailReportKeys[1]])}</td>
                                 <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
                             </tr>`;
             }
@@ -237,7 +237,7 @@ function showLateReport(emps, per = "curryear") {
             rows += `
             <tr class="toggleCollapse" data-target="#latereport${i}">
             <td>
-                ${emps[i].fname+" "+emps[i].lname}
+                ${emps[i].fname + " " + emps[i].lname}
             </td>
             <td>${masterReport.late}</td>
             </tr>
@@ -260,7 +260,7 @@ function showLateReport(emps, per = "curryear") {
                     rows += `
                             <tr>
                                 <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${formatAMPM( detailReport[j][detailReportKeys[1]])}</td>
+                                <td>${formatAMPM(detailReport[j][detailReportKeys[1]])}</td>
                                 <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
                             </tr>`;
             }
@@ -300,7 +300,7 @@ function showAbsenceReport(emps, per = "curryear") {
             rows += `
             <tr class="toggleCollapse" data-target="#absencereport${i}">
             <td>
-                ${emps[i].fname+" "+emps[i].lname}
+                ${emps[i].fname + " " + emps[i].lname}
             </td>
             <td>${masterReport.absent}</td>
             </tr>
@@ -353,7 +353,7 @@ function showRequests(emps) {
             rows += `
             <tr class="noCollapse">
             <td class="toggleCollapse tdToggleCollapse" data-target="#requests${i}">
-            <p>${emps[i].fname+" "+emps[i].lname}</p>
+            <p>${emps[i].fname + " " + emps[i].lname}</p>
             <div id="requests${i}" class="collapse">
                 <div class="card-body">
                     <label>Username:  </label><span> ${emps[i].username}</span><br>
@@ -387,10 +387,10 @@ function acceptRequest(emps, i) {
     downloadLink.setAttribute("download", "employees.json");
     downloadLink.click();
     downloadLink.href = 'mailto:' + emps[i].email +
-    "?subject=New Employee Registration&body=Registration request has been approved by the admin!\nPlease follow the link below to login to your account\n"+"http://localhost:5500/login_page.html";
-   downloadLink.setAttribute("download", "false");
-   downloadLink.click();
-   showAlert('Registration Status', 'Registration confirmation email has been sent to the new employee!', 1);
+        "?subject=New Employee Registration&body=Registration request has been approved by the admin!\nPlease follow the link below to login to your account\n" + "http://localhost:5500/login_page.html";
+    downloadLink.setAttribute("download", "false");
+    downloadLink.click();
+    showAlert('Registration Status', 'Registration confirmation email has been sent to the new employee!', 1);
 }
 
 function rejectRequest(emps, i) {
@@ -404,10 +404,10 @@ function rejectRequest(emps, i) {
     downloadLink.setAttribute("download", "employees.json");
     downloadLink.click();
     downloadLink.href = 'mailto:' + emps[i].email +
-    "?subject=New Employee Registration&body=Sorry to tell you that your registration request has been rejected by the admin!\nPlease follow the link below for more information\n"+"http://localhost:5500";
-   downloadLink.setAttribute("download", "false");
-   downloadLink.click();
-   showAlert('Registration Status', 'Registration confirmation email has been sent to the new employee!', 1);
+        "?subject=New Employee Registration&body=Sorry to tell you that your registration request has been rejected by the admin!\nPlease follow the link below for more information\n" + "http://localhost:5500";
+    downloadLink.setAttribute("download", "false");
+    downloadLink.click();
+    showAlert('Registration Status', 'Registration confirmation email has been sent to the new employee!', 1);
 }
 
 function makecode(length) {
@@ -420,11 +420,13 @@ function makecode(length) {
     return result;
 }
 
-
+let stDate, enDate;
 $(".daterangepicker-field").daterangepicker({
-  forceUpdate: true,
-  callback: function(startDate, endDate, period){
-    var title = startDate.format('L') + ' – ' + endDate.format('L');
-    $(this).val(title)
-  }
+    forceUpdate: true,
+    callback: function (startDate, endDate, period) {
+        stDate = startDate;
+        enDate = endDate;
+        var title = startDate.format('L') + ' – ' + endDate.format('L');
+        $(this).val(title)
+    }
 });
