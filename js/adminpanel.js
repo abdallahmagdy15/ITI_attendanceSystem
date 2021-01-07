@@ -147,7 +147,71 @@ function selectSubAdmin(el, i, empsArray) {
     }
 }
 
-function showFullReport(emps, per = "curryear") {
+function showFullReport(emps, query = "", startDate, endDate, per = "month") {
+
+    let rows = "";
+    //loop on emps only not admin or new emp .... according to query
+    emps = emps.filter(e => e.admin == undefined
+        && e.new == undefined
+        && e.fname.indexOf(query) != -1)
+        .forEach(emp => {
+            let masterReport = {};
+            let detailReport = [];
+            let detailColHeads = "";
+
+            if (per == "month") {
+                detailReport = getMonthly(emp.attendance,
+                    startDate.getMonth() + 1, endDate.getMonth() + 1);
+                masterReport = getCurrYearReport(detailReport);
+                detailColHeads = `<tr><th>Month</th><th>Attendance Times</th><th>Late Times</th><th>Absent Times</th></tr>`;
+            } else { /// per day
+                detailReport = getDaily(emps[i]);
+                masterReport = getCurrMonthReport(detailReport);
+                detailColHeads = `<tr><th>Day</th><th>Time</th><th>Late Time</th></tr>`;
+            }
+
+            detailReportKeys = Object.keys(detailReport[0]);
+            rows += `
+            <tr class="toggleCollapse" data-target="#fullreport${i}">
+            <td>
+                ${emps[i].fname + " " + emps[i].lname}
+            </td>
+            <td>${masterReport.attended}</td>
+            <td>${masterReport.late}</td>
+            <td>${masterReport.absent}</td>
+            </tr>
+            <tr>
+                <td colspan="4" id="fullreport${i}" class="collapse">
+                    <table>
+                        <thead>
+                            ${detailColHeads}
+                        </thead>
+                        <tbody>`;
+
+            for (j in detailReport) {
+                if (per == "curryear")
+                    rows += `
+                            <tr>
+                                <td>${detailReport[j][detailReportKeys[3]]}</td>
+                                <td>${detailReport[j][detailReportKeys[0]]}</td>
+                                <td>${detailReport[j][detailReportKeys[1]]}</td>
+                                <td>${detailReport[j][detailReportKeys[2]]}</td>
+                            </tr>`;
+                else
+                    rows += `
+                            <tr>
+                                <td>${detailReport[j][detailReportKeys[0]]}</td>
+                                <td>${formatAMPM(detailReport[j][detailReportKeys[1]])}</td>
+                                <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
+                            </tr>`;
+            }
+            rows += `
+                        </tbody>
+                    </table>
+                </td>
+            </tr>`;
+        });
+    //_______________________________
     let rows = "";
     //loop on emps only not admin or new emp
     for (var i = 0; i < emps.length; i++) {
