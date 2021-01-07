@@ -147,195 +147,102 @@ function selectSubAdmin(el, i, empsArray) {
     }
 }
 
-function showFullReport(emps, query = "", startDate, endDate, per = "month") {
+function showFullReport(emps, query = "", startDate, endDate) {
 
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
-    emps = emps.filter(e => e.admin == undefined
+    emps.filter(e => e.admin == undefined
         && e.new == undefined
         && e.fname.indexOf(query) != -1)
         .forEach(emp => {
-            let masterReport = {};
-            let detailReport = [];
-            let detailColHeads = "";
+            let yearReport = {
+                attend: 0,
+                late: 0,
+                absent: 0
+            };
+            let monthsReport = [];
 
-            if (per == "month") {
-                detailReport = getMonthly(emp.attendance,
-                    startDate.getMonth() + 1, endDate.getMonth() + 1);
-                masterReport = getCurrYearReport(detailReport);
-                detailColHeads = `<tr><th>Month</th><th>Attendance Times</th><th>Late Times</th><th>Absent Times</th></tr>`;
-            } else { /// per day
-                detailReport = getDaily(emps[i]);
-                masterReport = getCurrMonthReport(detailReport);
-                detailColHeads = `<tr><th>Day</th><th>Time</th><th>Late Time</th></tr>`;
-            }
-
-            detailReportKeys = Object.keys(detailReport[0]);
+            monthsReport = getMonthly(emp.attendance, startDate, endDate)
+            monthsReport.forEach((m) => {
+                yearReport.attend += m.attend;
+                yearReport.late += m.late;
+                yearReport.absent += m.absent;
+            })
             rows += `
             <tr class="toggleCollapse" data-target="#fullreport${i}">
             <td>
-                ${emps[i].fname + " " + emps[i].lname}
+                ${emp.fname + " " + emp.lname}
             </td>
-            <td>${masterReport.attended}</td>
-            <td>${masterReport.late}</td>
-            <td>${masterReport.absent}</td>
+            <td>${yearReport.attend}</td>
+            <td>${yearReport.late}</td>
+            <td>${yearReport.absent}</td>
             </tr>
             <tr>
                 <td colspan="4" id="fullreport${i}" class="collapse">
                     <table>
                         <thead>
-                            ${detailColHeads}
+                            <th>Month</th>
+                            <th>Attendance Times</th>
+                            <th>Late Times</th>
+                            <th>Absence Times</th>
                         </thead>
                         <tbody>`;
-
-            for (j in detailReport) {
-                if (per == "curryear")
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[3]]}</td>
-                                <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${detailReport[j][detailReportKeys[1]]}</td>
-                                <td>${detailReport[j][detailReportKeys[2]]}</td>
-                            </tr>`;
-                else
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${formatAMPM(detailReport[j][detailReportKeys[1]])}</td>
-                                <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
-                            </tr>`;
-            }
-            rows += `
-                        </tbody>
-                    </table>
-                </td>
-            </tr>`;
-        });
-    //_______________________________
-    let rows = "";
-    //loop on emps only not admin or new emp
-    for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].new == undefined) {
-            let masterReport = {};
-            let detailReport = [];
-            let detailColHeads = "";
-
-            if (per == "curryear") {
-                detailReport = getMonthly(emps[i]);
-                masterReport = getCurrYearReport(detailReport);
-                detailColHeads = `<tr><th>Month</th><th>Attendance Times</th><th>Late Times</th><th>Absent Times</th></tr>`;
-            } else { /// per current month
-                detailReport = getDaily(emps[i]);
-                masterReport = getCurrMonthReport(detailReport);
-                detailColHeads = `<tr><th>Day</th><th>Time</th><th>Late Time</th></tr>`;
-            }
-
-            detailReportKeys = Object.keys(detailReport[0]);
-            rows += `
-            <tr class="toggleCollapse" data-target="#fullreport${i}">
-            <td>
-                ${emps[i].fname + " " + emps[i].lname}
-            </td>
-            <td>${masterReport.attended}</td>
-            <td>${masterReport.late}</td>
-            <td>${masterReport.absent}</td>
-            </tr>
-            <tr>
-                <td colspan="4" id="fullreport${i}" class="collapse">
-                    <table>
-                        <thead>
-                            ${detailColHeads}
-                        </thead>
-                        <tbody>`;
-
-            for (j in detailReport) {
-                if (per == "curryear")
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[3]]}</td>
-                                <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${detailReport[j][detailReportKeys[1]]}</td>
-                                <td>${detailReport[j][detailReportKeys[2]]}</td>
-                            </tr>`;
-                else
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${formatAMPM(detailReport[j][detailReportKeys[1]])}</td>
-                                <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
-                            </tr>`;
-            }
-            rows += `
-                        </tbody>
-                    </table>
-                </td>
-            </tr>`;
-
-        }
-    }
+            monthsReport.forEach((m) => {
+                rows += `
+                <tr>
+                    <td>${m.month}</td>
+                    <td>${m.attend}</td>
+                    <td>${m.late}</td>
+                    <td>${m.absent}</td>
+                </tr>
+                `;
+            })
+        })
 
     $('#fullreportRows').html(rows);
 }
 
 
-function showLateReport(emps, per = "curryear") {
+function showLateReport(emps, query = "", startDate, endDate) {
     let rows = "";
-    //loop on emps only not admin or new emps
-    for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].new == undefined) {
-            let masterReport = {};
-            let detailReport = [];
-            let detailColHeads = "";
+    //loop on emps only not admin or new emp .... according to query
+    emps.filter(e => e.admin == undefined
+        && e.new == undefined
+        && e.fname.indexOf(query) != -1)
+        .forEach(emp => {
+            let yearReport = {
+                late: 0,
+            };
+            let monthsReport = [];
 
-            if (per == "curryear") {
-                detailReport = getMonthly(emps[i]);
-                masterReport = getCurrYearReport(detailReport);
-                detailColHeads = `<tr><th>Month</th><th>Late Times</th></tr>`;
-            } else { /// per current month
-                detailReport = getDaily(emps[i]);
-                masterReport = getCurrMonthReport(detailReport);
-                detailColHeads = `<tr><th>Day</th><th>Time</th><th>Late Time</th></tr>`;
-            }
-
-            detailReportKeys = Object.keys(detailReport[0]);
+            monthsReport = getMonthly(emp.attendance, startDate, endDate)
+            monthsReport.forEach((m) => {
+                yearReport.late += m.late;
+            })
             rows += `
             <tr class="toggleCollapse" data-target="#latereport${i}">
             <td>
-                ${emps[i].fname + " " + emps[i].lname}
+                ${emp.fname + " " + emp.lname}
             </td>
-            <td>${masterReport.late}</td>
+            <td>${yearReport.late}</td>
             </tr>
             <tr>
                 <td colspan="4" id="latereport${i}" class="collapse">
-                    <table >
+                    <table>
                         <thead>
-                            ${detailColHeads}
+                            <th>Month</th>
+                            <th>Late Times</th>
                         </thead>
                         <tbody>`;
-
-            for (j in detailReport) {
-                if (per == "curryear")
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[3]]}</td>
-                                <td>${detailReport[j][detailReportKeys[1]]}</td>
-                            </tr>`;
-                else
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[0]]}</td>
-                                <td>${formatAMPM(detailReport[j][detailReportKeys[1]])}</td>
-                                <td>${msToTime(detailReport[j][detailReportKeys[3]])}</td>
-                            </tr>`;
-            }
-            rows += `
-                        </tbody>
-                    </table>
-                </td>
-            </tr>`;
-
-        }
-    }
+            monthsReport.forEach((m) => {
+                rows += `
+                <tr class="toggleCollapse" data-target="#dailylatereport${i}">
+                    <td>${m.month}</td>
+                    <td>${m.late}</td>
+                </tr>
+                `;
+            })
+        })
 
     $('#latereportRows').html(rows);
 }
@@ -343,65 +250,44 @@ function showLateReport(emps, per = "curryear") {
 
 function showAbsenceReport(emps, per = "curryear") {
     let rows = "";
-    //loop on emps only not admin or new
-    for (var i = 0; i < emps.length; i++) {
-        if (emps[i].admin == undefined && emps[i].new == undefined) {
-            let masterReport = {};
-            let detailReport = [];
-            let detailColHeads = "";
+    //loop on emps only not admin or new emp .... according to query
+    emps.filter(e => e.admin == undefined
+        && e.new == undefined
+        && e.fname.indexOf(query) != -1)
+        .forEach(emp => {
+            let yearReport = {
+                absent: 0,
+            };
+            let monthsReport = [];
 
-            if (per == "curryear") {
-                detailReport = getMonthly(emps[i]);
-                masterReport = getCurrYearReport(detailReport);
-                detailColHeads = `<tr><th>Month</th><th>Absent Times</th></tr>`;
-            } else { /// per current month
-                detailReport = getDaily(emps[i]);
-                masterReport = getCurrMonthReport(detailReport);
-                detailColHeads = `<tr><th>Day</th></tr>`;
-            }
-
-            detailReportKeys = Object.keys(detailReport[0]);
+            monthsReport = getMonthly(emp.attendance, startDate, endDate)
+            monthsReport.forEach((m) => {
+                yearReport.absent += m.absent;
+            })
             rows += `
-            <tr class="toggleCollapse" data-target="#absencereport${i}">
+            <tr class="toggleCollapse" data-target="#latereport${i}">
             <td>
-                ${emps[i].fname + " " + emps[i].lname}
+                ${emp.fname + " " + emp.lname}
             </td>
-            <td>${masterReport.absent}</td>
+            <td>${yearReport.absent}</td>
             </tr>
             <tr>
-                <td colspan="4" id="absencereport${i}" class="collapse">
-                <div>
-                    <table >
+                <td colspan="4" id="latereport${i}" class="collapse">
+                    <table>
                         <thead>
-                            ${detailColHeads}
+                            <th>Month</th>
+                            <th>Absence Times</th>
                         </thead>
                         <tbody>`;
-
-            for (j in detailReport) {
-                if (per == "curryear")
-                    rows += `
-                            <tr>
-                                <td>${detailReport[j][detailReportKeys[3]]}</td>
-                                <td>${detailReport[j][detailReportKeys[2]]}</td>
-                            </tr>`;
-                else {
-                    //check absent days
-                    if (detailReport[j][detailReportKeys[1]] == 0)
-                        rows += `
-                    <tr>
-                        <td>${detailReport[j][detailReportKeys[0]]}</td>
-                    </tr>`;
-                }
-
-            }
-            rows += `
-                        </tbody>
-                    </table>
-                </td>
-            </tr>`;
-
-        }
-    }
+            monthsReport.forEach((m) => {
+                rows += `
+                <tr class="toggleCollapse" data-target="#dailyabsentreport${i}">
+                    <td>${m.month}</td>
+                    <td>${m.late}</td>
+                </tr>
+                `;
+            })
+        })
 
     $('#absencereportRows').html(rows);
 }
