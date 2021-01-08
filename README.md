@@ -24,9 +24,10 @@
 
   *Admin Panel*
   -admin panel contains master-detail-detail reports
-  -you can sort reports tables (asc or desc)
-  -you can search for specific employee by his name
-  -you can show reports for specific range of date
+  -admin can select the sub admin from all employees tab
+  -admin can sort reports tables (asc or desc)
+  -admin can search for specific employee by his name
+  -admin can show reports for specific range of date
 
   -both admin panel and profile have *pdf download* option for the report
   
