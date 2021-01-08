@@ -4,7 +4,7 @@ $(function () {
         $(this).tab('show');
     });
 })
-
+let monthly, currMonth = 1;
 let usernameSession = sessionStorage.getItem('username');
 if (usernameSession == undefined)
     location.replace('../login_page.html');
@@ -12,7 +12,6 @@ if (usernameSession == undefined)
 //load current user data
 fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
-        console.log(emps);
         let emp = getEmp(emps, usernameSession);
         if (emp != false)
             showEmpData(emp);
@@ -34,16 +33,20 @@ function showEmpData(emp) {
     if (emp.subadmin != undefined) {
         $('#profileOptions').append('<li  class="optionlist"><a href="attendance_page.html">Take Attendance</a></li>');
     }
-    showMonthlyReport(getMonthly(emp));
-    showDailyReport(getDaily(emp));
-    showChart(getMonthly(emp));
+    monthly = getMonthly(emp.attendance)
+    showMonthlyReport(monthly);
+    currMonth = (new Date()).getMonth() + 1;
+    showDailyReport(monthly, currMonth);
+    showChart(monthly);
 }
 
 function showChart(monthly) {
     var ctx = $('#chart');
     var datasets = [];
-    for (i in monthly)
-        datasets.push(monthly[i].attend);
+    monthly.forEach(m => {
+        datasets.push(m.attend);
+    })
+
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -93,40 +96,48 @@ function showChart(monthly) {
         }
     });
 }
-
 function showMonthlyReport(reportRows) {
     let rows = "";
-    for (i in reportRows) {
+    reportRows.forEach((m) => {
         rows += `
         <tr class="toggleCollapse">
-        <td>${reportRows[i].month}</td>
-        <td>${(reportRows[i].attend == 0) ? "__" : reportRows[i].attend}</td>
-        <td>${(reportRows[i].late == 0) ? "__" : reportRows[i].late}</td>
-        <td>${(reportRows[i].absent == 0) ? "__" : reportRows[i].absent}</td>
+        <td>${m.month}</td>
+        <td>${m.attend}</td>
+        <td>${m.late}</td>
+        <td>${m.absent}</td>
         </tr>
         `;
-    }
+    })
     $('#monthlyReportRows').html(rows);
 }
 
-function showDailyReport(reportRows) {
+function showDailyReport(reportRows, month) {
     let rows = "";
-    for (i in reportRows) {
-        rows += `
+    $('#selectedMonth').text("Month " + currMonth)
+    month = reportRows.filter(m => m.month == month)[0]
+    if (month != undefined)
+        month.days.forEach((d) => {
+            rows += `
         <tr class="toggleCollapse">
-        <td>${reportRows[i].day}</td>
-        <td>${formatAMPM(reportRows[i].time)}</td>
-        <td>${msToTime(reportRows[i].lateTime)}</td>
+        <td>${d.day}</td>
+        <td>${formatAMPM(d.time)}</td>
+        <td>${msToTime(d.lateTime)}</td>
         </tr>
         `;
-    }
+        })
     $('#dailyReportRows').html(rows);
 }
 
-$(".daterangepicker-field").daterangepicker({
-    forceUpdate: true,
-    callback: function (startDate, endDate, period) {
-        var title = startDate.format('L') + ' – ' + endDate.format('L');
-        $(this).val(title)
-    }
-});
+//handle switching months
+$('#prevmonth').click(function () {
+    currMonth--;
+    if (currMonth == 0)
+        currMonth = 12
+    showDailyReport(monthly, currMonth)
+})
+$('#nextmonth').click(function () {
+    currMonth++;
+    if (currMonth == 13)
+        currMonth = 1
+    showDailyReport(monthly, currMonth)
+})

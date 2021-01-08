@@ -78,11 +78,8 @@
                     </li>
                     <li class="nav-item" style="margin-left: auto;">
                         <form id="searchform" style="width:auto;">
-                            <input class="daterangepicker-field form-control d-inline" style="width: auto;vertical-align: middle;"
-                                placeholder="Pick Date Range"></input>
-                            <input name="query" class="form-control mr-sm-0"
-                                style="width:auto;display:inline-block;vertical-align: middle;" type="search"
-                                placeholder="Search" aria-label="Search">
+                            <input class="daterangepicker-field form-control d-inline"
+                                style="width: auto;vertical-align: middle;" placeholder="Pick Date Range"></input>
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </li>
@@ -104,6 +101,11 @@
                         </table>
                     </div>
                     <div class="tab-pane" id="dailyReport" role="tabpanel" aria-labelledby="daily-tab">
+                        <div class="p-2">
+                            <button class="btn" id="prevmonth"> &lt; </button>
+                            <h4 id="selectedMonth" class="d-inline m-3">  </h4>
+                            <button class="btn"  id="nextmonth"> &gt; </button>
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>

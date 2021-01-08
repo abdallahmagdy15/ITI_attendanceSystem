@@ -54,7 +54,8 @@ function formatAMPM(date) {
     return strTime;
 }
 //get monthly attendance 
-function getMonthly(months, startDate, endDate) {
+function getMonthly(months,startDate = new Date('Jan 1, 2021 00:00:00'),
+endDate = new Date('Dec 31, 2021 23:59:59')) {
     if (new Date() < startDate)
         return [];
 
