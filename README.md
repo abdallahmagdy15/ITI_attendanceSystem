@@ -48,8 +48,12 @@
   -fontawesome
 
 *USAGE*
+  -for any new operation saved to db , a json file will be downloaded then you have to
+   replace this with the old one in "data" folder
+
   -admin username : admin
   -admin password : 123456789
+  -any other user password : 123456789a
 
 *REQUIRED TASK*
 1-Create attendance system using projects
