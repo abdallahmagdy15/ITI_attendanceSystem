@@ -157,3 +157,12 @@ $('#nextmonth').click(function () {
         currMonth = 1
     showDailyReport(monthly, currMonth)
 })
+$(".daterangepicker-field").daterangepicker({
+    forceUpdate: true,
+    maxDate: '2021-12-31',
+    minDate: '2021-01-01',
+    callback: function (startDate, endDate, period) {
+        var title = startDate.format('L') + ' – ' + endDate.format('L');
+        $(this).val(title)
+    }
+});

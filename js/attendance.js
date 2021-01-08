@@ -31,12 +31,22 @@ function confirmAttendance(emps) {
                 .attendance.filter(a => a.month === selectedEmps[i].time.getMonth() + 1)[0];
         } catch {
             showAlert(selectedEmps[i].name + ', Code is not correct', 'Please enter the correct one!', 1);
-            selectedEmps[i].notFound = "";
+            return
+            //selectedEmps[i].notFound = "";
         }
+
+        //check if already attendance confirmed in this day
+        let checkConfirmed = empMonthObj.days.filter(d => d.day == (new Date()).getDate())
+        if (checkConfirmed.length > 0) {
+            showAlert(selectedEmps[i].name
+                + ', Already Confirmed', 'his attendance was already confirmed on : '
+            + formatAMPM(new Date(checkConfirmed[0].time)), 1);
+            return
+            //selectedEmps[i].alreadyConfirmed = ""
+        }
+        //update month obj
         let time = (new Date(selectedEmps[i].time)).getTime();
         let ruleTime = (new Date(selectedEmps[i].time)).setHours(9, 0, 0);
-        //update month obj
-        let lateTime = calcLatency(time, ruleTime)
         empMonthObj.days.push({
             day: selectedEmps[i].time.getDate(),
             time: selectedEmps[i].time,
@@ -44,10 +54,13 @@ function confirmAttendance(emps) {
         });
     }
 
+    if (selectedEmps.length == 0) {
+        showAlert('Code is not correct', 'Please enter the correct one!', 1);
+        return
+    }
+
     let confirmMsg = '';
     for (i in selectedEmps) {
-        if (selectedEmps[i].notFound != undefined)
-            continue;
         confirmMsg += `<p><label>Name: </label> ${selectedEmps[i].name}</p>
         <p><label>Time: </label> ${formatAMPM(selectedEmps[i].time)}</p><hr>`;
     }
