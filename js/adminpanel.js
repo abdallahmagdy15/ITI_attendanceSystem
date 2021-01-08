@@ -206,6 +206,29 @@ function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
                     <td>${m.late}</td>
                     <td>${m.absent}</td>
                 </tr>
+                <tr>
+                    <td colspan="4" id="dailylatereport${emp.id}">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Attendance Time</th>
+                                    <th>Late Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+
+                m.days.forEach(d => {
+                    rows += `<tr>
+                                <td>${d.day}</td>
+                                <td>${formatAMPM(d.time)}</td>
+                                <td>${formatAMPM(d.lateTime)}</td>
+                            </tr>`;
+                })
+                rows += `</tbody>
+                        </table>
+                    </td>
+                </tr>
                 `;
             })
             rows += '</tbody></table></td></tr>';
