@@ -1,3 +1,6 @@
+let stDate = new Date('Jan 1, 2021 00:00:00'),
+    enDate = new Date('Dec 31, 2021 23:59:59');
+
 $(function () {
     $("#reportsTabs li a").click(function (e) {
         e.preventDefault();
@@ -7,8 +10,8 @@ $(function () {
 //______________________
 /// check if current user is system admin
 fetch('../data/employees.json').then((emps) => emps.json())
-    .then((emps) => {
-        if (getEmp(getEmp(emps, sessionStorage.getItem('username')) == false || emps, sessionStorage.getItem('username')).admin == undefined) {
+    .then((Emps) => {
+        if (getEmp(getEmp(Emps, sessionStorage.getItem('username')) == false || Emps, sessionStorage.getItem('username')).admin == undefined) {
             $('#attendanceForm').html('');
             showAlert('Violation of User Agreement', 'Your account has been banned due to violation of our policy!', 1);
             $('#alertmodal').on('hidden.bs.modal', function (e) {
@@ -16,97 +19,128 @@ fetch('../data/employees.json').then((emps) => emps.json())
             });
         } else {
             //continue from here
-            loadAdminPanel();
+            loadAdminPanel(Emps);
         }
     });
 //_____________________
 
-function loadAdminPanel() {
-    //load all emps
-    fetch('../data/employees.json').then((emps) => emps.json())
-        .then(emps => {
-            //continue from here
-            //create all reports (default)
-            showAllEmps(emps);
-            showFullReport(emps);
-            showLateReport(emps);
-            showAbsenceReport(emps);
-            showRequests(emps);
+function loadAdminPanel(Emps) {
 
-            //handle search 
-            $('#searchform').submit((e) => {
-                e.preventDefault();
-                let range = $(e.target).serializeArray()[0].value;
-                if (range == '')
-                    range = '01/01/2021 – 12/31/2021';
-                range = range.split(' – ');
-                const query = $(e.target).serializeArray()[1].value;
-                const active = $('.nav-link.active').attr('href').slice(1)
-                switch (active) {
-                    case 'allemps':
-                        showAllEmps(emps, query)
-                        break;
-                    case 'fullreport':
-                        showFullReport(emps, new Date(range[0]), new Date(range[1]), query)
-                        break;
-                    case 'latereport':
-                        showLateReport(emps, new Date(range[0]), new Date(range[1]), query)
+    //continue from here
+    //create all reports (default)
+    showAllEmps(Emps);
+    showFullReport(Emps);
+    showLateReport(Emps);
+    showAbsenceReport(Emps);
+    showRequests(Emps);
 
-                        break;
-                    case 'absencereport':
-                        showAbsenceReport(emps, new Date(range[0]), new Date(range[1]), query)
-                        break;
-                }
-            });
+    //handle search 
+    $('#searchform').submit((e) => {
+        e.preventDefault();
+        let range = $(e.target).serializeArray()[0].value;
+        if (range == '')
+            range = '01/01/2021 – 12/31/2021';
+        range = range.split(' – ');
+        const query = $(e.target).serializeArray()[1].value;
+        const active = $('.nav-link.active').attr('href').slice(1)
+        switch (active) {
+            case 'allemps':
+                showAllEmps(Emps, query)
+                break;
+            case 'fullreport':
+                showFullReport(Emps, new Date(range[0]), new Date(range[1]), query)
+                break;
+            case 'latereport':
+                showLateReport(Emps, new Date(range[0]), new Date(range[1]), query)
 
-            //make tr clickable for showing details for master
-            $(function () {
-                $("tbody.reportTBody").on('click', 'tr,td.tdToggleCollapse', function (e) {
-                    e.preventDefault();
-                    let collapseId = $(this).attr('data-target');
-                    $(collapseId).toggle('show');
-                });
-            });
+                break;
+            case 'absencereport':
+                showAbsenceReport(Emps, new Date(range[0]), new Date(range[1]), query)
+                break;
+        }
+    });
 
-            ///handle request 
-            $(function () {
-                $("td").on('click', 'button.request', function (e) {
-                    e.preventDefault();
-                    if ($(this).hasClass('acceptRequest'))
-                        acceptRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
-                    else {
-                        rejectRequest(emps, $(this).parent().attr('empid')); //param has emp id in array emps
-                        $(this).parent().parent().remove(); /// remove tr
-                    }
-                    //reload requests
-                    showRequests(emps);
-                });
-            });
 
-            //handle selecting new sub admin
-            $(function () {
-                $(document).on('click', 'td.selectsubadmin', e => {
-                    selectSubAdmin(e.target, parseInt($(e.target).attr('empid')), emps);
-                });
-            });
-        })
-        .catch(emps => {
-            console.log("failed to load employees json file");
+    //handle sorting
+    $('.sortable').click(function (e) {
+        const sortby = $(this).attr('sort')
+        $('.activeSortable').removeClass('activeSortable');
+        $(this).addClass('activeSortable')
+        if (sortby.split('-')[1] == 'asc') {
+            $(this).attr('sort', sortby.split('-')[0] + '-' + 'desc')
+            $(this).children().first().removeClass('fa-chevron-down').addClass('fa-chevron-up')
+        }
+        else {
+            $(this).attr('sort', sortby.split('-')[0] + '-' + 'asc')
+            $(this).children().first().removeClass('fa-chevron-up').addClass('fa-chevron-down')
+        }
+        const active = $('.nav-link.active').attr('href').slice(1)
+        switch (active) {
+            case 'allemps':
+                showAllEmps(Emps, "", 0, sortby)
+                break;
+            case 'fullreport':
+                showFullReport(Emps, stDate, enDate, "", 0, sortby)
+                break;
+            case 'latereport':
+                showLateReport(Emps, stDate, enDate, "", 0, sortby)
+                break;
+            case 'absencereport':
+                showAbsenceReport(Emps, stDate, enDate, "", 0, sortby)
+                break;
+            case 'requests':
+                break;
+        }
+    })
+
+    //make tr clickable for showing details for master
+    $(function () {
+        $("tbody.reportTBody").on('click', 'tr,td.tdToggleCollapse', function (e) {
+            e.preventDefault();
+            let collapseId = $(this).attr('data-target');
+            $(collapseId).toggle('show');
         });
+    });
+
+    ///handle request 
+    $(function () {
+        $("td").on('click', 'button.request', function (e) {
+            e.preventDefault();
+            if ($(this).hasClass('acceptRequest'))
+                acceptRequest(Emps, $(this).parent().attr('empid')); //param has emp id in array emps
+            else {
+                rejectRequest(Emps, $(this).parent().attr('empid')); //param has emp id in array emps
+                $(this).parent().parent().remove(); /// remove tr
+            }
+            //reload requests
+            showRequests(Emps);
+        });
+    });
+
+    //handle selecting new sub admin
+    $(function () {
+        $(document).on('click', 'td.selectsubadmin', e => {
+            selectSubAdmin(e.target, parseInt($(e.target).attr('empid')), Emps);
+        });
+    });
+
 }
 
-
-function showAllEmps(emps, query = "") {
+function showAllEmps(employees, query = "", index = 0, sortby = 'name-asc') {
     let rows = "",
-        checked = "";
+        checked = "", recordsStart = index * 10, recordsEnd = (index + 1) * 10, emps = [];
+    //create a copy of emps for this function
+    employees.forEach(e => emps.push(Object.assign({}, e)))
+
     //loop on emps only not admin or new 
-    emps.filter(e => e.admin == undefined
+    emps = emps.filter(e => e.admin == undefined
         && e.new == undefined
-        && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
-        .forEach(emp => {
-            if (emp.subadmin != undefined) //if sub admin
-                checked = "checked";
-            rows += `
+        && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1));
+    emps.sort(compareName(sortby));
+    emps.slice(recordsStart, recordsEnd).forEach(emp => {
+        if (emp.subadmin != undefined) //if sub admin
+            checked = "checked";
+        rows += `
             <tr class="noCollapse">
             <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${emp.id}">
             <p>${emp.fname + " " + emp.lname}</p>
@@ -123,8 +157,8 @@ function showAllEmps(emps, query = "") {
             <td class="selectsubadmin" empid="${emp.id}" ><input name="subadmin" type="radio" ${checked} /></td>
             </tr>
             `;
-            checked = "";
-        })
+        checked = "";
+    })
     $('#allempsRows').html(rows);
 }
 
@@ -157,36 +191,45 @@ function selectSubAdmin(el, i, empsArray) {
     }
 }
 
-function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
-    endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
+function showFullReport(employees, startDate = stDate,
+    endDate = enDate, query = "", index = 0, sortby = "name-asc") {
 
-    let rows = "";
+    let rows = "", recordsStart = index * 10, recordsEnd = (index + 1) * 10, emps = [];
+    //create a copy of emps for this function
+    employees.forEach(e => emps.push(Object.assign({}, e)))
     //loop on emps only not admin or new emp .... according to query
-    emps.filter(e => e.admin == undefined
+    emps = emps.filter(e => e.admin == undefined
         && e.new == undefined
         && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
-        .forEach(emp => {
-            let yearReport = {
-                attend: 0,
-                late: 0,
-                absent: 0
-            };
-            let monthsReport = [];
+        .sort(compareName(sortby))
+        .slice(recordsStart, recordsEnd);
+    emps.forEach(emp => {
+        let yearReport = {
+            attend: 0,
+            late: 0,
+            absent: 0
+        };
+        let monthsReport = [];
 
-            monthsReport = getMonthly(emp.attendance, startDate, endDate)
-            monthsReport.forEach((m) => {
-                yearReport.attend += m.attend;
-                yearReport.late += m.late;
-                yearReport.absent += m.absent;
-            })
+        monthsReport = getMonthly(emp.attendance, startDate, endDate)
+        monthsReport.forEach((m) => {
+            yearReport.attend += m.attend;
+            yearReport.late += m.late;
+            yearReport.absent += m.absent;
+        })
+        emp.yearReport = yearReport
+        emp.monthsReport = monthsReport
+    })
+    emps.sort(compare(sortby))
+        .forEach(emp => {
             rows += `
             <tr class="toggleCollapse" data-target="#fullreport${emp.id}">
             <td>
                 ${emp.fname + " " + emp.lname}
             </td>
-            <td>${yearReport.attend}</td>
-            <td>${yearReport.late}</td>
-            <td>${yearReport.absent}</td>
+            <td>${emp.yearReport.attend}</td>
+            <td>${emp.yearReport.late}</td>
+            <td>${emp.yearReport.absent}</td>
             </tr>
             <tr>
                 <td colspan="4" id="fullreport${emp.id}" class="collapse">
@@ -198,7 +241,7 @@ function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
                             <th>Absence Times</th>
                         </thead>
                         <tbody>`;
-            monthsReport.forEach((m) => {
+            emp.monthsReport.forEach((m) => {
                 rows += `
                 <tr class="toggleCollapse" data-target="#dailylatereport${emp.id}">
                     <td>${m.month}</td>
@@ -238,29 +281,39 @@ function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
 }
 
 
-function showLateReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
-    endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
-    let rows = "";
+function showLateReport(employees, startDate = stDate,
+    endDate = enDate, query = "", index = 0, sortby = "name-asc") {
+    let rows = "", recordsStart = index * 10, recordsEnd = (index + 1) * 10, emps = [];
+    //create a copy of emps for this function
+    employees.forEach(e => emps.push(Object.assign({}, e)))
     //loop on emps only not admin or new emp .... according to query
-    emps.filter(e => e.admin == undefined
+    emps = emps.filter(e => e.admin == undefined
         && e.new == undefined
         && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
-        .forEach(emp => {
-            let yearReport = {
-                late: 0,
-            };
-            let monthsReport = [];
+        .sort(compareName(sortby))
+        .slice(recordsStart, recordsEnd);
 
-            monthsReport = getMonthly(emp.attendance, startDate, endDate)
-            monthsReport.forEach((m) => {
-                yearReport.late += m.late;
-            })
+    emps.forEach(emp => {
+        let yearReport = {
+            late: 0,
+        };
+        let monthsReport = [];
+
+        monthsReport = getMonthly(emp.attendance, startDate, endDate)
+        monthsReport.forEach((m) => {
+            yearReport.late += m.late;
+        })
+        emp.yearReport = yearReport
+        emp.monthsReport = monthsReport
+    })
+    emps.sort(compare(sortby))
+        .forEach(emp => {
             rows += `
             <tr class="toggleCollapse" data-target="#latereport${emp.id}">
             <td>
                 ${emp.fname + " " + emp.lname}
             </td>
-            <td>${yearReport.late}</td>
+            <td>${emp.yearReport.late}</td>
             </tr>
             <tr>
                 <td colspan="4" id="latereport${emp.id}" class="collapse">
@@ -270,7 +323,7 @@ function showLateReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
                             <th>Late Times</th>
                         </thead>
                         <tbody>`;
-            monthsReport.forEach((m) => {
+            emp.monthsReport.forEach((m) => {
                 rows += `
                 <tr class="toggleCollapse" data-target="#dailylatereport${emp.id}">
                     <td>${m.month}</td>
@@ -285,29 +338,38 @@ function showLateReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
 }
 
 
-function showAbsenceReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
-    endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
-    let rows = "";
+function showAbsenceReport(employees, startDate = stDate,
+    endDate = enDate, query = "", index = 0, sortby = "name-asc") {
+    let rows = "", recordsStart = index * 10, recordsEnd = (index + 1) * 10, emps = [];
+    //create a copy of emps for this function
+    employees.forEach(e => emps.push(Object.assign({}, e)));
     //loop on emps only not admin or new emp .... according to query
-    emps.filter(e => e.admin == undefined
+    emps = emps.filter(e => e.admin == undefined
         && e.new == undefined
         && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
-        .forEach(emp => {
-            let yearReport = {
-                absent: 0,
-            };
-            let monthsReport = [];
+        .sort(compareName(sortby))
+        .slice(recordsStart, recordsEnd);
+    emps.forEach(emp => {
+        let yearReport = {
+            absent: 0,
+        };
+        let monthsReport = [];
 
-            monthsReport = getMonthly(emp.attendance, startDate, endDate)
-            monthsReport.forEach((m) => {
-                yearReport.absent += m.absent;
-            })
+        monthsReport = getMonthly(emp.attendance, startDate, endDate)
+        monthsReport.forEach((m) => {
+            yearReport.absent += m.absent;
+        })
+        emp.yearReport = yearReport
+        emp.monthsReport = monthsReport
+    })
+    emps.sort(compare(sortby))
+        .forEach(emp => {
             rows += `
             <tr class="toggleCollapse" data-target="#absentreport${emp.id}">
             <td>
                 ${emp.fname + " " + emp.lname}
             </td>
-            <td>${yearReport.absent}</td>
+            <td>${emp.yearReport.absent}</td>
             </tr>
             <tr>
                 <td colspan="4" id="absentreport${emp.id}" class="collapse">
@@ -317,7 +379,7 @@ function showAbsenceReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
                             <th>Absence Times</th>
                         </thead>
                         <tbody>`;
-            monthsReport.forEach((m) => {
+            emp.monthsReport.forEach((m) => {
                 rows += `
                 <tr class="toggleCollapse" data-target="#dailyabsentreport${emp.id}">
                     <td>${m.month}</td>
@@ -330,9 +392,11 @@ function showAbsenceReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
     $('#absencereportRows').html(rows);
 }
 
-function showRequests(emps) {
+function showRequests(employees) {
     let rows = "",
-        requests = 0;
+        requests = 0, emps = [];
+    //create a copy of emps for this function
+    employees.forEach(e => emps.push(Object.assign({}, e)));
     //loop on emps only not admin
     for (i in emps) {
         if (emps[i].new != undefined) { /// if emp has new 
@@ -415,3 +479,92 @@ $(".daterangepicker-field").daterangepicker({
         $(this).val(title)
     }
 });
+
+function compareName(sortby) {
+    sortby = sortby.split('-');
+    if (sortby[0] == 'name') {
+        if (sortby[1] == 'asc')
+            return function (a, b) {
+                if (a.fname > b.fname)
+                    return 1
+                else if (a.fname < b.fname)
+                    return -1
+                return 0
+            }
+        else
+            return function (a, b) {
+                if (a.fname < b.fname)
+                    return 1
+                else if (a.fname > b.fname)
+                    return -1
+                return 0
+            }
+    }
+
+    return undefined
+}
+
+function compare(sortby) {
+    sortby = sortby.split('-');
+    switch (sortby[0]) {
+        case 'attend':
+            if (sortby[1] == 'asc')
+                return function (a, b) {
+                    if (a.yearReport.attend > b.yearReport.attend)
+                        return 1
+                    else if (a.yearReport.attend < b.yearReport.attend)
+                        return -1
+
+                    return 0
+                }
+            else
+                return function (a, b) {
+                    if (a.yearReport.attend < b.yearReport.attend)
+                        return 1
+                    else if (a.yearReport.attend > b.yearReport.attend)
+                        return -1
+
+                    return 0
+                }
+        case 'late':
+            if (sortby[1] == 'asc')
+                return function (a, b) {
+                    if (a.yearReport.late > b.yearReport.late)
+                        return 1
+                    else if (a.yearReport.late < b.yearReport.late)
+                        return -1
+
+                    return 0
+                }
+            else
+                return function (a, b) {
+                    if (a.yearReport.late < b.yearReport.late)
+                        return 1
+                    else if (a.yearReport.late > b.yearReport.late)
+                        return -1
+
+                    return 0
+                }
+        case 'absent':
+            if (sortby[1] == 'asc')
+                return function (a, b) {
+                    if (a.yearReport.absent > b.yearReport.absent)
+                        return 1
+                    else if (a.yearReport.absent < b.yearReport.absent)
+                        return -1
+
+                    return 0
+                }
+            else
+                return function (a, b) {
+                    if (a.yearReport.absent < b.yearReport.absent)
+                        return 1
+                    else if (a.yearReport.absent > b.yearReport.absent)
+                        return -1
+
+                    return 0
+                }
+    }
+    return undefined
+
+}

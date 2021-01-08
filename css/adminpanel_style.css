@@ -12,16 +12,27 @@ h2 {
     color: var(--darkred);
 }
 
-td input{
+td input {
     margin-top: .9rem;
 }
-p{
+
+p {
     margin: .5rem 0;
 }
-.card-body span{
+
+.card-body span {
     font-size: 1.2rem;
 }
 
-.card-body label{
+.card-body label {
     font-weight: lighter;
+}
+
+.sortable:hover {
+    background-color: var(--smoke)
+}
+
+.activeSortable {
+    background-color: var(--lightred)!important;
+    color: white;
 }

@@ -78,7 +78,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
+                                    <th class="sortable" sort='name-asc'>Employee Name <i class="fas fa-chevron-down"></i></th>
                                     <th>Attendance Admin</th>
                                 </tr>
                             </thead>
@@ -92,10 +92,10 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
-                                    <th>Attendance Times</th>
-                                    <th>Late Times</th>
-                                    <th>Absent Times</th>
+                                    <th class="sortable" sort='name-asc'>Employee Name <i class="fas fa-chevron-down"></i></th>
+                                    <th class="sortable" sort='attend-asc'>Attendance Times <i class="fas fa-chevron-down"></i></th>
+                                    <th class="sortable" sort='late-asc'>Late Times <i class="fas fa-chevron-down"></i></th>
+                                    <th class="sortable" sort='absent-asc'>Absent Times <i class="fas fa-chevron-down"></i></th>
                                 </tr>
                             </thead>
                             <tbody class="reportTBody" id="fullreportRows">
@@ -108,8 +108,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
-                                    <th>Late Times</th>
+                                    <th class="sortable" sort='name-asc'>Employee Name <i class="fas fa-chevron-down"></i></th>
+                                    <th class="sortable" sort='late-asc'>Late Times <i class="fas fa-chevron-down"></i></th>
                                 </tr>
                             </thead>
                             <tbody class="reportTBody" id="latereportRows">
@@ -122,9 +122,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
-                                    <th>Absent Times</th>
-                                </tr>
+                                    <th class="sortable" sort='name-asc'>Employee Name <i class="fas fa-chevron-down"></i></th>
+                                    <th class="sortable" sort='absent-asc'>Absent Times</th>                                </tr>
                             </thead>
                             <tbody class="reportTBody" id="absencereportRows">
 
