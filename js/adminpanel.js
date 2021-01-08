@@ -33,23 +33,31 @@ function loadAdminPanel() {
             showAbsenceReport(emps);
             showRequests(emps);
 
-            ///reload reports based on "per" switch
-            $(function () {
-                $('.displayperSwitch').change(function () {
-                    let per = "curryear";
-                    if ($(this).parent().hasClass('off')) ///if per month
-                        per = "currmonth";
-                    ///check for which report it was toggled
-                    if ($(this).attr('id') == 'fullreportSwitch')
-                        showFullReport(emps, per);
-                    else if ($(this).attr('id') == 'latereportSwitch')
-                        showLateReport(emps, per);
-                    else
-                        showAbsenceReport(emps, per);
-                })
-            })
-            //showLateReport();
-            //showRequests();
+            //handle search 
+            $('#searchform').submit((e) => {
+                e.preventDefault();
+                let range = $(e.target).serializeArray()[0].value;
+                if (range != '')
+                    range = range.split('-');
+                const query = $(e.target).serializeArray()[1].value;
+                const active = $('.nav-link.active').attr('href').slice(1)
+                switch (active) {
+                    case 'allemps':
+                        showAllEmps(emps, query)
+                        break;
+                    case 'fullreport':
+                        showFullReport(emps, new Date(range[0]), new Date(range[1]), query)
+                        break;
+                    case 'latereport':
+                        showLateReport(emps, new Date(range[0]), new Date(range[1]), query)
+
+                        break;
+                    case 'absencereport':
+                        showAbsenceReport(emps, new Date(range[0]), new Date(range[1]), query)
+                        break;
+                }
+            });
+
             //make tr clickable for showing details for master
             $(function () {
                 $("tbody.reportTBody").on('click', 'tr,td.tdToggleCollapse', function (e) {
@@ -87,34 +95,35 @@ function loadAdminPanel() {
 }
 
 
-function showAllEmps(emps) {
+function showAllEmps(emps, query = "") {
     let rows = "",
         checked = "";
     //loop on emps only not admin or new 
-    for (i in emps) {
-        if (emps[i].admin == undefined && emps[i].new == undefined) {
-            if (emps[i].subadmin != undefined) //if sub admin
+    emps.filter(e => e.admin == undefined
+        && e.new == undefined
+        && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
+        .forEach(emp => {
+            if (emp.subadmin != undefined) //if sub admin
                 checked = "checked";
             rows += `
             <tr class="noCollapse">
-            <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${i}">
-            <p>${emps[i].fname + " " + emps[i].lname}</p>
-            <div id="allemps${i}" class="collapse">
+            <td class="toggleCollapse tdToggleCollapse" data-target="#allemps${emp.id}">
+            <p>${emp.fname + " " + emp.lname}</p>
+            <div id="allemps${emp.id}" class="collapse">
                 <div class="card-body">
-                    <label>Username:  </label><span> ${emps[i].username}</span><br>
-                    <label>Email:  </label><span> ${emps[i].email}</span><br>
-                    <label>Address:  </label><span> ${emps[i].address}</span><br>
-                    <label>Age:  </label><span> ${emps[i].age}</span><br>
-                    <label>Code:  </label><span> ${emps[i].code}</span><br>
+                    <label>Username:  </label><span> ${emp.username}</span><br>
+                    <label>Email:  </label><span> ${emp.email}</span><br>
+                    <label>Address:  </label><span> ${emp.address}</span><br>
+                    <label>Age:  </label><span> ${emp.age}</span><br>
+                    <label>Code:  </label><span> ${emp.code}</span><br>
                 </div>
             </div>
             </td>
-            <td class="selectsubadmin" empid="${i}" ><input name="subadmin" type="radio" ${checked} /></td>
+            <td class="selectsubadmin" empid="${emp.id}" ><input name="subadmin" type="radio" ${checked} /></td>
             </tr>
             `;
-        }
-        checked = "";
-    }
+            checked = "";
+        })
     $('#allempsRows').html(rows);
 }
 
@@ -147,13 +156,13 @@ function selectSubAdmin(el, i, empsArray) {
     }
 }
 
-function showFullReport(emps, query = "", startDate, endDate) {
+function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'), endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
 
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
     emps.filter(e => e.admin == undefined
         && e.new == undefined
-        && e.fname.indexOf(query) != -1)
+        && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
         .forEach(emp => {
             let yearReport = {
                 attend: 0,
@@ -169,7 +178,7 @@ function showFullReport(emps, query = "", startDate, endDate) {
                 yearReport.absent += m.absent;
             })
             rows += `
-            <tr class="toggleCollapse" data-target="#fullreport${i}">
+            <tr class="toggleCollapse" data-target="#fullreport${emp.id}">
             <td>
                 ${emp.fname + " " + emp.lname}
             </td>
@@ -178,7 +187,7 @@ function showFullReport(emps, query = "", startDate, endDate) {
             <td>${yearReport.absent}</td>
             </tr>
             <tr>
-                <td colspan="4" id="fullreport${i}" class="collapse">
+                <td colspan="4" id="fullreport${emp.id}" class="collapse">
                     <table>
                         <thead>
                             <th>Month</th>
@@ -189,7 +198,7 @@ function showFullReport(emps, query = "", startDate, endDate) {
                         <tbody>`;
             monthsReport.forEach((m) => {
                 rows += `
-                <tr>
+                <tr class="toggleCollapse" data-target="#dailylatereport${emp.id}">
                     <td>${m.month}</td>
                     <td>${m.attend}</td>
                     <td>${m.late}</td>
@@ -197,18 +206,19 @@ function showFullReport(emps, query = "", startDate, endDate) {
                 </tr>
                 `;
             })
-        })
+            rows += '</tbody></table></td></tr>';
 
+        })
     $('#fullreportRows').html(rows);
 }
 
 
-function showLateReport(emps, query = "", startDate, endDate) {
+function showLateReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'), endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
     emps.filter(e => e.admin == undefined
         && e.new == undefined
-        && e.fname.indexOf(query) != -1)
+        && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
         .forEach(emp => {
             let yearReport = {
                 late: 0,
@@ -220,14 +230,14 @@ function showLateReport(emps, query = "", startDate, endDate) {
                 yearReport.late += m.late;
             })
             rows += `
-            <tr class="toggleCollapse" data-target="#latereport${i}">
+            <tr class="toggleCollapse" data-target="#latereport${emp.id}">
             <td>
                 ${emp.fname + " " + emp.lname}
             </td>
             <td>${yearReport.late}</td>
             </tr>
             <tr>
-                <td colspan="4" id="latereport${i}" class="collapse">
+                <td colspan="4" id="latereport${emp.id}" class="collapse">
                     <table>
                         <thead>
                             <th>Month</th>
@@ -236,24 +246,25 @@ function showLateReport(emps, query = "", startDate, endDate) {
                         <tbody>`;
             monthsReport.forEach((m) => {
                 rows += `
-                <tr class="toggleCollapse" data-target="#dailylatereport${i}">
+                <tr class="toggleCollapse" data-target="#dailylatereport${emp.id}">
                     <td>${m.month}</td>
                     <td>${m.late}</td>
                 </tr>
                 `;
             })
-        })
+            rows += '</tbody></table></td></tr>';
 
+        })
     $('#latereportRows').html(rows);
 }
 
 
-function showAbsenceReport(emps, per = "curryear") {
+function showAbsenceReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'), endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
     emps.filter(e => e.admin == undefined
         && e.new == undefined
-        && e.fname.indexOf(query) != -1)
+        && (e.fname.indexOf(query) != -1 || e.lname.indexOf(query) != -1))
         .forEach(emp => {
             let yearReport = {
                 absent: 0,
@@ -265,14 +276,14 @@ function showAbsenceReport(emps, per = "curryear") {
                 yearReport.absent += m.absent;
             })
             rows += `
-            <tr class="toggleCollapse" data-target="#latereport${i}">
+            <tr class="toggleCollapse" data-target="#absentreport${emp.id}">
             <td>
                 ${emp.fname + " " + emp.lname}
             </td>
             <td>${yearReport.absent}</td>
             </tr>
             <tr>
-                <td colspan="4" id="latereport${i}" class="collapse">
+                <td colspan="4" id="absentreport${emp.id}" class="collapse">
                     <table>
                         <thead>
                             <th>Month</th>
@@ -281,17 +292,16 @@ function showAbsenceReport(emps, per = "curryear") {
                         <tbody>`;
             monthsReport.forEach((m) => {
                 rows += `
-                <tr class="toggleCollapse" data-target="#dailyabsentreport${i}">
+                <tr class="toggleCollapse" data-target="#dailyabsentreport${emp.id}">
                     <td>${m.month}</td>
-                    <td>${m.late}</td>
+                    <td>${m.absent}</td>
                 </tr>
                 `;
             })
+            rows += '</tbody></table></td></tr>';
         })
-
     $('#absencereportRows').html(rows);
 }
-
 
 function showRequests(emps) {
     let rows = "",
@@ -327,7 +337,7 @@ function showRequests(emps) {
 
 function acceptRequest(emps, i) {
     delete emps[i].new;
-    emps[i].code = makecode(10);
+    emps[i].code = makecode(8);
     //download data
     var _blob = new Blob([JSON.stringify(emps)], {
         type: "application/json"
@@ -369,14 +379,3 @@ function makecode(length) {
     }
     return result;
 }
-
-let stDate, enDate;
-$(".daterangepicker-field").daterangepicker({
-    forceUpdate: true,
-    callback: function (startDate, endDate, period) {
-        stDate = startDate;
-        enDate = endDate;
-        var title = startDate.format('L') + ' – ' + endDate.format('L');
-        $(this).val(title)
-    }
-});

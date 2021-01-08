@@ -43,9 +43,9 @@ function onSubmitEmp(form) {
   for (var i = 1; i < 13; i++)
     attendance.push({
       month: i,
-      attend:0,
-      late:0,
-      absent:0,
+      attend: 0,
+      late: 0,
+      absent: 0,
       days: []
     });
   emp.attendance = attendance;
@@ -75,6 +75,7 @@ function checkUsernameAvailibility(uname, emps) {
 }
 
 function registerEmpData(emp, emps) {
+  emp.id = emps.length
   emps.push(emp);
   //download data
   var _blob = new Blob([JSON.stringify(emps)], {
@@ -86,9 +87,9 @@ function registerEmpData(emp, emps) {
   downloadLink.setAttribute("download", "employees.json");
   downloadLink.click();
   downloadLink.href = 'mailto:' + emps[0].email +
-   "?subject=New Employee Registration&body=A new Employee called : " +
+    "?subject=New Employee Registration&body=A new Employee called : " +
     '"' + emp.fname + " " + emp.lname + '"' +
-     " has registested and he is waiting for your confirmation";
+    " has registested and he is waiting for your confirmation";
   downloadLink.setAttribute("download", "false");
   downloadLink.click();
   showAlert('Registration Status', 'Registration request has been sent to the admin for  the approvement!', 1);

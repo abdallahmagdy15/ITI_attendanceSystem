@@ -61,31 +61,33 @@ function getMonthly(months, startDate, endDate) {
     if (new Date() < endDate)
         endDate = new Date()
 
-    return months.filter(m =>
+    months = months.filter(m =>
         m.month >= startDate.getMonth() + 1 && m.month <= endDate.getMonth() + 1)
-        .forEach((m) => {
-            let daysCount = 0;
-            //get days for each month according to range of dates
-            if (startDate.getMonth() == endDate.getMonth()) {
-                m.days = m.days.filter(d => d.day >= startDate.getDate() && d.day <= endDate.getDate())
-                daysCount = endDate.getDate() - startDate.getDate()
-            }
-            else if (m.month == startDate.getMonth() + 1) {
-                m.days = m.days.filter(d => d.day >= startDate.getDate())
-                daysCount = 30 - startDate.getDate()
-            }
-            else if (m.month == endDate.getMonth() + 1) {
-                m.days = m.days.filter(d => d.day <= endDate.getDate())
-                daysCount = endDate.getDate()
-            }
+    months.forEach((m) => {
+        let daysCount = 0;
+        //get days for each month according to range of dates
+        if (startDate.getMonth() == endDate.getMonth()) {
+            m.days = m.days.filter(d => d.day >= startDate.getDate() && d.day <= endDate.getDate())
+            daysCount = endDate.getDate() - startDate.getDate()
+        }
+        else if (m.month == startDate.getMonth() + 1) {
+            m.days = m.days.filter(d => d.day >= startDate.getDate())
+            daysCount = 30 - startDate.getDate()
+        }
+        else if (m.month == endDate.getMonth() + 1) {
+            m.days = m.days.filter(d => d.day <= endDate.getDate())
+            daysCount = endDate.getDate()
+        }
 
-            m.days.forEach(d => {
-                m.attend++;
-                if (d.lateTime > 0)
-                    m.late++;
-            })
-            m.absent = daysCount - m.attend
+        m.days.forEach(d => {
+            m.attend++;
+            if (d.lateTime > 0)
+                m.late++;
         })
+        
+        m.absent = (daysCount + 1) - m.attend
+    })
+    return months;
 }
 
 function readableDate(date) {
@@ -106,42 +108,14 @@ function msToTime(duration) {
     return hours + " : " + minutes + " : " + seconds;
 }
 
-$('#searchform').submit((e) => {
-    e.preventDefault();
-    let range = $(e.target).serializeArray()[0].value;
-    let query = $(e.target).serializeArray()[1].value;
-    let p = false,
-        val = "";
-
-    // show specific range
-
-
-
-    // array of emps names tds
-    let namesTds = $('.tab-pane.active > table > tbody > tr.toggleCollapse > td:first-child()');
-    if (namesTds.length == 0) {
-        namesTds = $('.tab-pane.active > table > tbody > tr.noCollapse > td:first-child()');
-        p = true;
+$(".daterangepicker-field").daterangepicker({
+    forceUpdate: true,
+    callback: function (startDate, endDate, period) {
+        var title = startDate.format('L') + ' – ' + endDate.format('L');
+        $(this).val(title)
     }
-    //if str empty after hiding some elements then show again
-    if (query == "")
-        for (i in namesTds)
-            $(namesTds[i]).parent().fadeIn();
-    else
-        for (i in namesTds) {
-            if (p) // if td has paragraph
-                val = $(namesTds[i]).children().first().text();
-            else
-                val = $(namesTds[i]).text();
-            // if not match any of query .. then hide ...else then show
-            if (val.toLowerCase().indexOf(query.toLowerCase()) == -1)
-                $(namesTds[i]).parent().fadeOut();
-            else
-                $(namesTds[i]).parent().fadeIn();
-        }
-
-    return false;
 });
+
 
 function generatePDF() {
     html2pdf(document.querySelector('.reports'));
