@@ -13,8 +13,24 @@ if (usernameSession == undefined)
 fetch('../data/employees.json').then((emps) => emps.json())
     .then(emps => {
         let emp = getEmp(emps, usernameSession);
+        monthly = getMonthly(emp.attendance)
+
         if (emp != false)
             showEmpData(emp);
+
+        //handle search 
+        $('#searchform').submit((e) => {
+            e.preventDefault();
+            let range = $(e.target).serializeArray()[0].value;
+            if (range == '')
+                range = '01/01/2021 – 12/31/2021';
+            range = range.split(' – ');
+            monthly = getMonthly(emp.attendance, new Date(range[0]), new Date(range[1]))
+
+            const active = $('.nav-link.active').attr('href').slice(1)
+            if (active == 'monthlyReport')
+                showMonthlyReport(monthly)
+        });
     })
     .catch(emps => {
         console.log("failed to load employees json file");
@@ -33,7 +49,6 @@ function showEmpData(emp) {
     if (emp.subadmin != undefined) {
         $('#profileOptions').append('<li  class="optionlist"><a href="attendance_page.html">Take Attendance</a></li>');
     }
-    monthly = getMonthly(emp.attendance)
     showMonthlyReport(monthly);
     currMonth = (new Date()).getMonth() + 1;
     showDailyReport(monthly, currMonth);
