@@ -47,7 +47,9 @@
   -popper
   -fontawesome
 
-
+*USAGE*
+  -admin username : admin
+  -admin password : 123456789
 
 *REQUIRED TASK*
 1-Create attendance system using projects
