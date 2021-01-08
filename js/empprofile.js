@@ -107,7 +107,8 @@ function showChart(monthly) {
                         beginAtZero: true
                     }
                 }]
-            }
+            },
+            responsive:true
         }
     });
 }
