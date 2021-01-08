@@ -1,6 +1,6 @@
 [
     {
-        "id": 0,
+        "id":0,
         "admin": "",
         "fname": "admin",
         "lname": "abdallah",
@@ -98,7 +98,7 @@
         ]
     },
     {
-        "id": 1,
+        "id":1,
         "fname": "ahmed",
         "lname": "salah",
         "username": "ahmedsalah",
@@ -113,13 +113,7 @@
                 "attend": 0,
                 "late": 0,
                 "absent": 0,
-                "days": [
-                    {
-                        "day": 8,
-                        "time": "2021-01-08T01:32:36.082Z",
-                        "lateTime": 0
-                    }
-                ]
+                "days": []
             },
             {
                 "month": 2,
@@ -199,10 +193,10 @@
                 "days": []
             }
         ],
-        "code": "rpC87lV8"
+        "code":"rpC87lV8"
     },
     {
-        "id": 2,
+        "id":2,
         "fname": "Ahmed",
         "lname": "Ali Nasr",
         "username": "ahmedali",
@@ -217,13 +211,7 @@
                 "attend": 0,
                 "late": 0,
                 "absent": 0,
-                "days": [
-                    {
-                        "day": 8,
-                        "time": "2021-01-08T01:32:41.713Z",
-                        "lateTime": 0
-                    }
-                ]
+                "days": []
             },
             {
                 "month": 2,
@@ -303,10 +291,10 @@
                 "days": []
             }
         ],
-        "code": "8YJYMkdS"
+        "code":"8YJYMkdS"
     },
     {
-        "id": 3,
+        "id":3,
         "subadmin": "",
         "fname": "Abdallah",
         "lname": "Magdy",
@@ -322,13 +310,7 @@
                 "attend": 0,
                 "late": 0,
                 "absent": 0,
-                "days": [
-                    {
-                        "day": 8,
-                        "time": "2021-01-08T01:32:44.042Z",
-                        "lateTime": 0
-                    }
-                ]
+                "days": []
             },
             {
                 "month": 2,
@@ -408,10 +390,10 @@
                 "days": []
             }
         ],
-        "code": "ws1yrNc4"
+        "code":"ws1yrNc4"
     },
     {
-        "id": 4,
+        "id":4,
         "fname": "Abdallah",
         "lname": "Elsaeed",
         "username": "abdallahelsaeed",
@@ -426,13 +408,7 @@
                 "attend": 0,
                 "late": 0,
                 "absent": 0,
-                "days": [
-                    {
-                        "day": 8,
-                        "time": "2021-01-08T01:32:54.042Z",
-                        "lateTime": 0
-                    }
-                ]
+                "days": []
             },
             {
                 "month": 2,
@@ -512,10 +488,10 @@
                 "days": []
             }
         ],
-        "code": "Gnptzo6i"
+        "code":"Gnptzo6i"
     },
     {
-        "id": 5,
+        "id":5,
         "fname": "Beshoy",
         "lname": "Amgad",
         "username": "beshoyamgad",
@@ -613,7 +589,7 @@
         "new": ""
     },
     {
-        "id": 6,
+        "id":6,
         "fname": "Hassan",
         "lname": "Yahia",
         "username": "hassanyahia",

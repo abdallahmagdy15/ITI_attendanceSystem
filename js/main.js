@@ -54,17 +54,19 @@ function formatAMPM(date) {
     return strTime;
 }
 //get monthly attendance 
-function getMonthly(months,startDate = new Date('Jan 1, 2021 00:00:00'),
-endDate = new Date('Dec 31, 2021 23:59:59')) {
+function getMonthly(months, startDate = new Date('Jan 1, 2021 00:00:00'),
+    endDate = new Date('Dec 31, 2021 23:59:59')) {
+    let filteredMonths=[];
     if (new Date() < startDate)
         return [];
 
     if (new Date() < endDate)
         endDate = new Date()
 
-    months = months.filter(m =>
+    months.filter(m =>
         m.month >= startDate.getMonth() + 1 && m.month <= endDate.getMonth() + 1)
-    months.forEach((m) => {
+        .forEach(m => filteredMonths.push(Object.assign({}, m)))
+    filteredMonths.forEach((m) => {
         let daysCount = 0;
         //get days for each month according to range of dates
         if (startDate.getMonth() == endDate.getMonth()) {
@@ -79,16 +81,15 @@ endDate = new Date('Dec 31, 2021 23:59:59')) {
             m.days = m.days.filter(d => d.day <= endDate.getDate())
             daysCount = endDate.getDate()
         }
-
         m.days.forEach(d => {
-            m.attend++;
+            m.attend++
             if (d.lateTime > 0)
-                m.late++;
+                m.late++
         })
-        
+
         m.absent = (daysCount + 1) - m.attend
     })
-    return months;
+    return filteredMonths;
 }
 
 function readableDate(date) {
@@ -111,6 +112,8 @@ function msToTime(duration) {
 
 $(".daterangepicker-field").daterangepicker({
     forceUpdate: true,
+    maxDate: '2021-12-31',
+    minDate: '2021-01-01',
     callback: function (startDate, endDate, period) {
         var title = startDate.format('L') + ' – ' + endDate.format('L');
         $(this).val(title)

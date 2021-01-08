@@ -37,8 +37,9 @@ function loadAdminPanel() {
             $('#searchform').submit((e) => {
                 e.preventDefault();
                 let range = $(e.target).serializeArray()[0].value;
-                if (range != '')
-                    range = range.split('-');
+                if (range == '')
+                    range = '01/01/2021 – 12/31/2021';
+                range = range.split(' – ');
                 const query = $(e.target).serializeArray()[1].value;
                 const active = $('.nav-link.active').attr('href').slice(1)
                 switch (active) {
@@ -157,7 +158,7 @@ function selectSubAdmin(el, i, empsArray) {
 }
 
 function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
- endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
+    endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
 
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
@@ -215,7 +216,7 @@ function showFullReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
 
 
 function showLateReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
- endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
+    endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
     emps.filter(e => e.admin == undefined
@@ -262,7 +263,7 @@ function showLateReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
 
 
 function showAbsenceReport(emps, startDate = new Date('Jan 1, 2021 00:00:00'),
- endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
+    endDate = new Date('Dec 31, 2021 23:59:59'), query = "") {
     let rows = "";
     //loop on emps only not admin or new emp .... according to query
     emps.filter(e => e.admin == undefined

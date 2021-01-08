@@ -13,6 +13,8 @@ fetch('../data/employees.json').then((emps) => emps.json())
         }
     });
 
+let selectedEmps = [];
+
 function formSubmitHandler(emps) {
     $('#attendanceForm').submit(function (e) {
         confirmAttendance(emps);
@@ -34,14 +36,12 @@ function confirmAttendance(emps) {
         let time = (new Date(selectedEmps[i].time)).getTime();
         let ruleTime = (new Date(selectedEmps[i].time)).setHours(9, 0, 0);
         //update month obj
+        let lateTime = calcLatency(time, ruleTime)
         empMonthObj.days.push({
             day: selectedEmps[i].time.getDate(),
             time: selectedEmps[i].time,
             lateTime: calcLatency(time, ruleTime)
         });
-        empMonthObj.attend++;
-        if (lateTime != 0)
-            empMonthObj.late++;
     }
 
     let confirmMsg = '';
@@ -73,8 +73,8 @@ function calcLatency(time, ruleTime) {
         return 0;
 }
 
-let selectedEmps = [];
 function attendAutoComplete(emps) {
+    emps = emps.filter(e => e.admin == undefined && e.new == undefined)
     let empsCode = emps.map(emp => {
         return {
             label: emp.fname + " " + emp.lname,

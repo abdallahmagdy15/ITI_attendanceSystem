@@ -158,3 +158,6 @@ th {
 thead tr{
     box-shadow: 0px 1px 3px var(--lightred);
 }
+.daterangepicker{
+    left: 50%!important;
+}
