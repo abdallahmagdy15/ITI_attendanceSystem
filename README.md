@@ -56,22 +56,22 @@
   - any other user password : 123456789a
 
 ## LIVE WEBSITE
-  (https://iti-attendance.netlify.app/)
+  https://iti-attendance.netlify.app
 
 ### REQUIRED TASK
-1- Create attendance system using projects
-  a- Client side technologies (CSS,HTML,JS)
-  b- Html5 and bootstrap
-  c- Advanced JS and ECMA6
-  d- (JQuery,Ajax,fetch)
+1. Create attendance system using projects
+  - Client side technologies (CSS,HTML,JS)
+  - Html5 and bootstrap
+  - Advanced JS and ECMA6
+  - (JQuery,Ajax,fetch)
 
-2- storing and saving your reports data in Json files formats
+2. storing and saving your reports data in Json files formats
 
-3- make sure you make all validations and user restriction on data
+3. make sure you make all validations and user restriction on data
 before saving
 
 
 ## ABOUT
-  **Abdullah Magdy Abou Elyazeed**
-  Email: **abdallah.magdy1515@gmail.com**
-  LinkedIn: [**abdallahmagdy15**](https://www.linkedin.com/in/abdallahmagdy15/)
+  **Abdullah Magdy Abou Elyazeed**  
+  Email: **abdallah.magdy1515@gmail.com**  
+  LinkedIn: [**abdallahmagdy15**](https://www.linkedin.com/in/abdallahmagdy15/)  
