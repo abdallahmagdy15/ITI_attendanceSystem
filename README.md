@@ -7,12 +7,15 @@
   - Simple Light Theme UI
   - Data stored as a tree in a json file
   - Responsive using bootstrap
-  - login & register client-side validation and
-   work around (server-side) validation using js based on json file data
   - showing modals for any important alerts for the user
   - handling authentication and authorization of accessing pages (using sessionStorage)
   
+  #### Login and Register
+  - login & register have client-side validation and
+   work around (server-side) validation using js based on json file data
+  
   #### Profile
+  - profile page shows the employee information and (monthly , daily) reports for his attendance 
   - only sub admin can take attendance from the option appears in the options button (caret)
   - profile has an attendance chart
   - profile has daily report with a buttons to switch between months
@@ -20,10 +23,10 @@
   #### Attendance page
   - sub admin can search for employees by their name and add to list to confirm their attendance
   - a confirmation modal will appear
-  - you can type employee code directly
+  - sub admin can type employee code directly
 
   #### Admin Panel
-  - admin panel contains master-detail-detail reports
+  - admin panel contains master-detail-detail reports for all employees attendance
   - admin can select the sub admin from all employees tab
   - admin can sort reports tables (asc or desc)
   - admin can search for specific employee by his name
@@ -34,8 +37,8 @@
 ## TECHNOLOGIES
   - HTML5
   - CSS3
-  - ES6
-  - JQuery
+  - Advanced JS and ES6
+  - JQuery,fetch
   - Bootstrap
 
 ## OTHER LIBRARIES
