@@ -1,9 +1,9 @@
 # ITI_attendanceSystem
 
-*INTRO* 
+##INTRO 
  ITI_attendanceSystem is a front-end application for taking employees attendance , showing their attendance in profile page and showing reports for the admin about employees attendance.
 
-*FEATURES*
+##FEATURES
   -Simple Light Theme UI
   -Data stored as a tree in a json file
   -Responsive using bootstrap
@@ -12,17 +12,17 @@
   -showing modals for any important alerts for the user
   -handling authentication and authorization of accessing pages (using sessionStorage)
   
-  *Profile*
+  #####Profile
   -only sub admin can take attendance from the option appears in the options button (caret)
   -profile has an attendance chart
   -profile has daily report with a buttons to switch between months
 
-  *attendance page*
+  #####attendance page
   -sub admin can search for employees by their name and add to list to confirm their attendance
   -a confirmation modal will appear
   -you can type employee`s code directly
 
-  *Admin Panel*
+  #####Admin Panel
   -admin panel contains master-detail-detail reports
   -admin can select the sub admin from all employees tab
   -admin can sort reports tables (asc or desc)
@@ -31,14 +31,14 @@
 
   -both admin panel and profile have *pdf download* option for the report
   
-*TECHNOLOGIES*
+##TECHNOLOGIES
   -HTML5
   -CSS3
   -ES6
   -JQuery
   -Bootstrap
 
-*OTHER LIBRARIES*
+##OTHER LIBRARIES
   -chart
   -daterangepicker
   -html2pdf
@@ -47,7 +47,7 @@
   -popper
   -fontawesome
 
-*USAGE*
+##USAGE
   -for any new operation saved to db , a json file will be downloaded then you have to
    replace this with the old one in "data" folder
 
@@ -55,10 +55,10 @@
   -admin password : 123456789
   -any other user password : 123456789a
 
-*LIVE WEBSITE*
-  https://iti-attendance.netlify.app/
+##LIVE WEBSITE
+  (https://iti-attendance.netlify.app/)
 
-*REQUIRED TASK*
+###REQUIRED TASK
 1-Create attendance system using projects
   a-Client side technologies (CSS,HTML,JS)
   b-Html5 and bootstrap
@@ -71,7 +71,7 @@
 before saving
 
 
-*ABOUT*
-  Abdullah Magdy Elkhayyat
-  Email: abdallah.magdy1515@gmail.com
-  LinkedIn: abdallahmagdy15
+##ABOUT
+  **Abdullah Magdy Abou Elyazeed**
+  Email: **abdallah.magdy1515@gmail.com**
+  LinkedIn: **abdallahmagdy15**
