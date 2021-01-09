@@ -55,6 +55,9 @@
   -admin password : 123456789
   -any other user password : 123456789a
 
+*LIVE WEBSITE*
+  https://iti-attendance.netlify.app/
+
 *REQUIRED TASK*
 1-Create attendance system using projects
   a-Client side technologies (CSS,HTML,JS)
