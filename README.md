@@ -1,4 +1,4 @@
-# ITI_attendanceSystem
+# ITI Attendance System
 
 ## INTRO 
  ITI_attendanceSystem is a front-end application for taking employees attendance , showing their attendance in profile page and showing reports for the admin about employees attendance.
@@ -72,6 +72,6 @@ before saving
 
 
 ## ABOUT
-  ** Abdullah Magdy Abou Elyazeed **
-  Email: ** abdallah.magdy1515@gmail.com **
-  LinkedIn: ** abdallahmagdy15 **
+  **Abdullah Magdy Abou Elyazeed**
+  Email: **abdallah.magdy1515@gmail.com**
+  LinkedIn: [**abdallahmagdy15**](https://www.linkedin.com/in/abdallahmagdy15/)
