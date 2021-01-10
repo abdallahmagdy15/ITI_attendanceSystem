@@ -42,6 +42,7 @@
   - Bootstrap
 
 ## OTHER LIBRARIES
+  - Jquery UI
   - chart
   - daterangepicker
   - html2pdf
