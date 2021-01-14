@@ -59,7 +59,7 @@
   - admin password : 123456789
   - any other user password : 123456789a
 
-## LIVE WEBSITE
+## PREVIEW LINK
   https://iti-attendance.netlify.app
 
 ### REQUIRED TASK
